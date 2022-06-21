@@ -1,0 +1,933 @@
+openapi: 3.0.0
+info:
+  title: v1
+  description: >-
+    Welcome to Garuda Stablecoin API Docs.
+
+    This document is for internal use only. You are prohibited from sharing all
+    contents of this documents to any external third party without Elbert's /
+    Dendi's permission.
+
+
+    All endpoints return either a JSON object or array regardless of success /
+    error response.
+
+
+    Note: All request headers `x-mock-*` are postman related. Please disregard
+    this headers in your code.
+
+
+    This API docs is still a draft. Thus, if you spot any mistake, typo, or just
+    something what wouldn't make sense, let me (Elbert) know. Example of things
+    that doesn't make sense:
+
+    1. Double slash in endpoint.
+
+    2. Different parameter name between request body and `parameters` table.
+
+    3. Inconsistencies (e.g. variable or parameter name), typo, etc.
+  version: 1.0.0
+servers:
+  - url: http://{{url}}
+tags:
+  - name: Admin
+  - name: User
+  - name: User > Authentication
+    description: >-
+      This endpoint collection host all endpoints related to user
+      authentication.
+paths:
+  /auth/register/retail:
+    post:
+      tags:
+        - User > Authentication
+      summary: Register retail
+      description: >-
+        Register the user.
+
+
+        #### Parameters
+
+        Parameter | Required | Type | Value | Description |
+
+        --------- | -------- | ---- | ----- | ----------- |
+
+        phone_number | true | string | +62818151010 | Telephone number |
+
+        password | true | string | my_secret_pass | SHA256 hashed password. |
+
+        password_confirmation | true | string | my_secret_pass | SHA256 hashed
+        password. |
+
+        referral_code | false | string | 65e60076-9b6a-43ec-83cc-5aecaf99dbe2 |
+        UUID string |
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                phone_number: '081318510160'
+                password: my_secret_pass
+                password_confirmation: my_secret_pass
+      parameters:
+        - name: x-mock-match-request-body
+          in: header
+          schema:
+            type: boolean
+          example: 'true'
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: '578'
+                user_uuid: cb8761f1-9011-4d6a-a45a-ed9c64f59bf0
+                phone_number: '+62818151010'
+        '400':
+          description: Bad Request
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                statusCode: 400
+                error:
+                  message: >-
+                    We have existing user with phone number. Use 'Forgot
+                    password' to recover your account.
+                name: BadRequest
+  /auth/register/institutional:
+    post:
+      tags:
+        - User > Authentication
+      summary: Register institutional
+      description: >-
+        Register user with institutional information.
+
+
+        #### Parameters
+
+
+        | Parameter | Required | Type | Value | Description |
+
+        | --- | --- | --- | --- | --- |
+
+        | phone_number | true | string | +62818151010 | Telephone number |
+
+        | password | true | string | my_secret_pass | SHA256 hashed password. |
+
+        | password_confirmation | true | string | my_secret_pass | SHA256 hashed
+        password. |
+
+        | legal_institution_name | true | string | PT Jagadraya Jaring Tersebar
+        | Institution legal official name. |
+
+        | registration_country | true | string | ID | ISO 3166-1 alpha 2-code. |
+
+        | referral_code | false | string | 65e60076-9b6a-43ec-83cc-5aecaf99dbe2
+        | UUID string |
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                phone_number: '081318510160'
+                legal_institution_name: PT Jagadraya Jaring Tersebar
+                registration_country: ID
+                password: my_secret_pass
+                password_confirmation: my_secret_pass
+      parameters:
+        - name: x-mock-match-request-body
+          in: header
+          schema:
+            type: boolean
+          example: 'true'
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: '3'
+                legal_institution_name: PT Jagadraya Jaring Tersebar
+                phone_number: '081318510160'
+                registration_country: ID
+  /auth/sign-up-otp:
+    post:
+      tags:
+        - User > Authentication
+      summary: Sign up OTP
+      description: >-
+        In sign up journey, user will be provided with OTP sent to their phone
+        to verify their phone number. After inserting this OTP, user will be
+        automatically logged in without inserting phone number and password
+        again.
+
+
+        However, this API still requires phone number and password to be sent
+        alongside the OTP token to prevent security risk. Imagine a following
+        scenario:
+
+        1. User A request an OTP.
+
+        2. Attacker can use the API to input OTP sent to user A and gain access
+        token.
+
+
+        User must not be asked to input phone number and password again. Thus,
+        it is front end responsibility to save phone_number and password, and
+        then forward it together with otp_token to gain access token.
+
+
+
+        #### Parameters
+
+
+        | Parameter | Required | Type | Value | Description |
+
+        | --- | --- | --- | --- | --- |
+
+        | phone_number | true | string | +62818151010 | Telephone number |
+
+        | password | true | string | my_secret_pass | SHA256 hashed password. |
+
+        | otp_token | false | string | 658388 | TOTP of the shared secret if OTP
+        is activated |
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                phone_number: '081318510160'
+                password: my_secret_pass
+                otp_token: '123456'
+      parameters:
+        - name: x-mock-match-request-body
+          in: header
+          schema:
+            type: boolean
+          example: 'true'
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                token_type: Bearer
+                expires_in: 900
+                access_token: <access token>
+                refresh_token: <refresh token>
+        '400':
+          description: Bad Request
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                example-0:
+                  summary: Sign up OTP Error - OTP mismatch
+                  value:
+                    statusCode: 400
+                    error:
+                      message: OTP is incorrect. Please try again.
+                    name: BadRequest
+                example-1:
+                  summary: Sign up OTP Error - incorrect credentials
+                  value:
+                    statusCode: 400
+                    error:
+                      message: User credentials were incorrect.
+                    name: BadRequest
+  /auth/login-without-otp:
+    post:
+      tags:
+        - User > Authentication
+      summary: Login without OTP
+      description: >-
+        Authenticates the user and requests a pair of access and refresh tokens.
+        Access token expires in 15 minutes. Refresh token expires in 7 days.
+        Tokens should be removed from browser's store on window close or on
+        application close.
+
+
+        #### Parameters
+
+
+        | Parameter | Required | Type | Value | Description |
+
+        | --- | --- | --- | --- | --- |
+
+        | phone_number | true | string | +62818151010 | Telephone number |
+
+        | password | true | string | my_secret_pass | SHA256 hashed password. |
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                phone_number: '081318510162'
+                password: my_secret_pass
+      parameters:
+        - name: x-mock-match-request-body
+          in: header
+          schema:
+            type: boolean
+          example: 'true'
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                token_type: Bearer
+                expires_in: 900
+                access_token: <access token>
+                refresh_token: <refresh token>
+        '400':
+          description: Bad Request
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                statusCode: 400
+                error:
+                  message: User credentials were incorrect.
+                name: BadRequest
+        '403':
+          description: Forbidden
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                statusCode: 403
+                error:
+                  message: >-
+                    You are logging in from unknown IP address. Please try to
+                    login with OTP to gain access.
+                name: BadRequest
+  /auth/login-with-otp:
+    post:
+      tags:
+        - User > Authentication
+      summary: Login with OTP
+      description: >-
+        In a case where user can't login without OTP (e.g. because of suspicious
+        IP address), user will be told to login with OTP. To login with with
+        OTP, user must first hit endpoint `auth/request-otp`. After getting OTP,
+        user will submit that OTP alongside his / her credential (phone_number
+        and passowrd).
+
+
+        If OTP is accepted, this endpoint authenticates the user and requests a
+        pair of access and refresh tokens. Access token expires in 15 minutes.
+        Refresh token expires in 7 days. Tokens should be removed from browser's
+        store on window close.
+
+
+        #### Parameters
+
+
+        | Parameter | Required | Type | Value | Description |
+
+        | --- | --- | --- | --- | --- |
+
+        | phone_number | true | string | +62818151010 | Telephone number |
+
+        | password | true | string | my_secret_pass | SHA256 hashed password. |
+
+        | otp_token | false | string | 658388 | TOTP of the shared secret if OTP
+        is activated |
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                phone_number: '081318510160'
+                password: my_secret_pass
+                otp_token: '658389'
+      parameters:
+        - name: x-mock-match-request-body
+          in: header
+          schema:
+            type: boolean
+          example: 'true'
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                token_type: Bearer
+                expires_in: 900
+                access_token: <access token>
+                refresh_token: <refresh token>
+        '400':
+          description: Bad Request
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                example-0:
+                  summary: login with OTP error - credential incorrect
+                  value:
+                    statusCode: 400
+                    error:
+                      message: User credentials were incorrect.
+                    name: BadRequest
+                example-1:
+                  summary: login with OTP error - otp incorrect
+                  value:
+                    statusCode: 400
+                    error:
+                      message: OTP is incorrect. Please try again.
+                    name: BadRequest
+  /auth/refresh:
+    post:
+      tags:
+        - User > Authentication
+      summary: Refresh
+      description: Request new access token with refresh token.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                refresh_token: R3AJzxl81xrIZQSLPODp
+      parameters:
+        - name: x-mock-match-request-body
+          in: header
+          schema:
+            type: boolean
+          example: 'true'
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: Bearer <access_token>
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                token_type: Bearer
+                expires_in: 900
+                access_token: <access token>
+                refresh_token: <refresh token>
+                is_otp_activated: true
+        '400':
+          description: Bad Request
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                statusCode: 400
+                error:
+                  message: Refresh token is not valid.
+                name: BadRequest
+  /auth/forgot-password:
+    post:
+      tags:
+        - User > Authentication
+      summary: Forgot password request
+      description: >-
+        Request for reset password link. Link will be sent to the phone number.
+
+
+        When phone number is unknown, server will still respond with `200 OK`.
+        This is to prevent malicious user to brute force and gain visibility to
+        registered phone number.
+
+
+        #### Parameters
+
+
+        | Parameter | Required | Type | Value | Description |
+
+        | --- | --- | --- | --- | --- |
+
+        | phone_number | true | string | +62818151010 | Telephone number |
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                phone_number: '081318510160'
+      parameters:
+        - name: x-mock-match-body-request
+          in: header
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: A link will be sent via SMS to reset your password.
+  /auth/verify-reset-id:
+    post:
+      tags:
+        - User > Authentication
+      summary: Verify reset password request
+      description: >-
+        When user clicked on the reset password link sent to their phone, it
+        will open webpage and immediately gets redirected to mobile app.
+
+
+        Mobile app needs to verify the `reset_id` to determine three of possible
+        cases:
+
+
+        1.  Link has expired.
+
+        2.  Link is invalid because reset_id is wrong.
+
+        3.  Link is active and ready to use.
+            
+
+        Thus, here, backend provide api to check the `reset_id`.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                reset_id: c3319fc5-f028-4aa3-9644-9cb03825f6af
+      parameters:
+        - name: x-mock-match-request-body
+          in: header
+          schema:
+            type: boolean
+          example: 'true'
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: Link is valid.
+        '400':
+          description: Bad Request
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                example-0:
+                  summary: Verification error - reset id incorrect
+                  value:
+                    statusCode: 400
+                    error:
+                      message: Link has incorrect reset_id.
+                    name: BadRequest
+                example-1:
+                  summary: Verification error - reset id expired
+                  value:
+                    statusCode: 400
+                    error:
+                      message: Link has expired.
+                    name: BadRequest
+  /auth/reset-password/:
+    post:
+      tags:
+        - User > Authentication
+      summary: Reset password
+      description: >-
+        When hitting this API, user must also provide `reset_id`. This reset id
+        is created when user hit `forgot_password_request` api and sent as part
+        of the link sent to the user (via SMS).
+
+
+        `reset_id` ensures link has not expired, and request is made by the
+        rightful owner.
+
+
+        Note: `reset_id` would have been verified through `verify-reset-id` API,
+        but must still be resubmitted here to prevent attack through time
+        difference between verification and reset password submission.
+
+
+
+        #### Parameters
+
+        | Parameter | Required | Type | Value | Description |
+
+        | --- | --- | --- | --- | --- |
+
+        | reset_id | true | string | c3319fc5-f028-4aa3-9644-9cb03825f6af | UUID
+        for reset process. User got this from the reset link sent via SMS. |
+
+        | new_password | true | string | my_new_pass | New password to save |
+
+        | confirm_password | true | string | my_new_pass | Value of this param
+        must equal to `new_password`. |
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                reset_id: c3319fc5-f028-4aa3-9644-9cb03825f6af
+                new_password: my_new_pass
+                confirm_password: my_new_pass
+      parameters:
+        - name: x-mock-match-request-body
+          in: header
+          schema:
+            type: boolean
+          example: 'true'
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: Reset password successful.
+        '400':
+          description: Bad Request
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                statusCode: 400
+                error:
+                  message: >-
+                    Reset id is not recognized. Please send forget password
+                    request again.
+                name: BadRequest
+        '403':
+          description: Forbidden
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                statusCode: 403
+                error:
+                  message: >-
+                    This link has expired. Please send forget password request
+                    again.
+                name: Forbidden
+  /auth/change-password:
+    post:
+      tags:
+        - User > Authentication
+      summary: Change password
+      description: >-
+        Endpoint for user to change his / her password.
+
+
+        #### Parameters
+
+
+        | Parameter | Required | Type | Value | Description |
+
+        | --- | --- | --- | --- | --- |
+
+        | phone_number | true | string | +62818151010 | Telephone number |
+
+        | old_password | true | string | my_secret_pass | Old Password |
+
+        | new_password | true | string | my_new_super_pass | New Password |
+
+        | password_confirmation | true | string | my_new_super_pass |
+        Confirmation of New Password |
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                phone_number: '081318510160'
+                old_password: my_secret_pass
+                new_password: my_new_super_pass
+                password_confirmation: my_new_super_pass
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: Bearer <access_token>
+        - name: x-mock-response-name
+          in: header
+          schema:
+            type: string
+          example: change password error - password mismatch
+      responses:
+        '400':
+          description: Bad Request
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                example-0:
+                  summary: change password error - phone unknown
+                  value:
+                    statusCode: 400
+                    error:
+                      message: This phone number is unknown, please register first.
+                    name: BadRequest
+                example-1:
+                  summary: change password error - password mismatch
+                  value:
+                    statusCode: 400
+                    error:
+                      message: >-
+                        The old password does not match with our internal
+                        database.
+                    name: BadRequest
+  /auth/request-otp:
+    post:
+      tags:
+        - User > Authentication
+      summary: Request OTP
+      description: >-
+        Request an OTP for a specified phone number. Implement rate-limiting API
+        on this endpoint. Maximum 1 time per minute, with total 5 times per 3
+        hours.
+
+
+        #### Parameters
+
+
+        | Parameter | Required | Type | Value | Description |
+
+        | --- | --- | --- | --- | --- |
+
+        | phone_number | true | string | +62818151010 | Telephone number |
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                phone_number: '081318510160'
+      parameters:
+        - name: x-mock-match-request-body
+          in: header
+          schema:
+            type: boolean
+          example: 'true'
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: |-
+                {
+                    "otp_token": "123456"
+                }
+        '400':
+          description: Bad Request
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                statusCode: 400
+                error:
+                  message: This phone number is unknown, please register first.
+                name: BadRequest
+  /auth/challenge-otp:
+    post:
+      tags:
+        - User > Authentication
+      summary: Challenge OTP
+      description: >-
+        #### Parameters
+
+
+        | Parameter | Required | Type | Value | Description |
+
+        | --- | --- | --- | --- | --- |
+
+        | otp_token | true | string | 556038 | One time passcode/ 2-Factor
+        Authentication token |
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                otp_token: '123456'
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: Bearer <access_token>
+        - name: x-mock-match-request-body
+          in: header
+          schema:
+            type: boolean
+          example: 'true'
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: OTP accepted.
+        '403':
+          description: Forbidden
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                statusCode: 403
+                error:
+                  message: OTP failed to match.
+                name: Forbidden
