@@ -1381,7 +1381,7 @@
 										}
 									],
 									"cookie": [],
-									"body": "{\n    \"message\": \"Password has been updated. Please login to trade\",\n}"
+									"body": "{\n    \"message\": \"Password has been updated. Please login to trade\"\n}"
 								},
 								{
 									"name": "change password error - phone unknown",

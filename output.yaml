@@ -776,6 +776,19 @@ paths:
             type: string
           example: change password error - password mismatch
       responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: Password has been updated. Please login to trade
         '400':
           description: Bad Request
           headers:
