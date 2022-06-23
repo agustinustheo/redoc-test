@@ -398,9 +398,9 @@ paths:
             schema:
               type: object
               example:
-                phone_number: '081318510160'
+                phone_number: '081318510161'
                 password: my_secret_pass
-                otp_token: '658389'
+                otp_token: '658388'
       parameters:
         - name: x-mock-match-request-body
           in: header
@@ -800,23 +800,11 @@ paths:
             application/json:
               schema:
                 type: object
-              examples:
-                example-0:
-                  summary: change password error - phone unknown
-                  value:
-                    statusCode: 400
-                    error:
-                      message: This phone number is unknown, please register first.
-                    name: BadRequest
-                example-1:
-                  summary: change password error - password mismatch
-                  value:
-                    statusCode: 400
-                    error:
-                      message: >-
-                        The old password does not match with our internal
-                        database.
-                    name: BadRequest
+              example:
+                statusCode: 400
+                error:
+                  message: The old password does not match with our internal database.
+                name: BadRequest
   /auth/request-otp:
     post:
       tags:
@@ -826,6 +814,16 @@ paths:
         Request an OTP for a specified phone number. Implement rate-limiting API
         on this endpoint. Maximum 1 time per minute, with total 5 times per 3
         hours.
+
+
+        In response, `request_time` is unix timestamp marking when the OTP
+        request is made. `count` is the number of times OTP has been requested
+        in the past 3 hours. `max_count` is the request limit for 3-hour period.
+
+
+        If the requested phone number is unknown, server will still return as if
+        phone number is valid. This is to prevent attacker brute forcing our API
+        to gain list of registered user.
 
 
         #### Parameters
@@ -858,15 +856,16 @@ paths:
                 type: string
                 example: application/json
           content:
-            text/plain:
+            application/json:
               schema:
-                type: string
-              example: |-
-                {
-                    "otp_token": "123456"
-                }
-        '400':
-          description: Bad Request
+                type: object
+              example:
+                request_time: 1655948417
+                count: 3
+                max_count: 5
+                message: Token has been sent to requesting phone number.
+        '403':
+          description: Forbidden
           headers:
             Content-Type:
               schema:
@@ -877,10 +876,12 @@ paths:
               schema:
                 type: object
               example:
-                statusCode: 400
+                statusCode: 403
                 error:
-                  message: This phone number is unknown, please register first.
-                name: BadRequest
+                  message: >-
+                    Max OTP request limit exceeded. Please wait before making
+                    another request.
+                name: Forbidden
   /auth/challenge-otp:
     post:
       tags:

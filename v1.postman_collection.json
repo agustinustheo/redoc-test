@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "2bdeffdb-a2e0-4678-9ba5-60c53e02387f",
+		"_postman_id": "4cabdd1e-2f4e-4dee-9344-2b4654d242f0",
 		"name": "v1",
 		"description": "Welcome to Garuda Stablecoin API Docs.\nThis document is for internal use only. You are prohibited from sharing all contents of this documents to any external third party without Elbert's / Dendi's permission.\n\nAll endpoints return either a JSON object or array regardless of success / error response.\n\nNote: All request headers `x-mock-*` are postman related. Please disregard this headers in your code.\n\nThis API docs is still a draft. Thus, if you spot any mistake, typo, or just something what wouldn't make sense, let me (Elbert) know. Example of things that doesn't make sense:\n1. Double slash in endpoint.\n2. Different parameter name between request body and `parameters` table.\n3. Inconsistencies (e.g. variable or parameter name), typo, etc.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
@@ -589,7 +589,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"phone_number\": \"081318510160\",\n    \"password\": \"my_secret_pass\",\n    \"otp_token\": \"658389\"\n}",
+									"raw": "{\n    \"phone_number\": \"081318510161\",\n    \"password\": \"my_secret_pass\",\n    \"otp_token\": \"658388\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1384,45 +1384,6 @@
 									"body": "{\n    \"message\": \"Password has been updated. Please login to trade\"\n}"
 								},
 								{
-									"name": "change password error - phone unknown",
-									"originalRequest": {
-										"method": "POST",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n    \"phone_number\": \"081318510160\",\n    \"old_password\": \"my_secret_pass\",\n    \"new_password\": \"my_new_super_pass\",\n    \"password_confirmation\": \"my_new_super_pass\"\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{url}}/auth/change-password",
-											"host": [
-												"{{url}}"
-											],
-											"path": [
-												"auth",
-												"change-password"
-											]
-										}
-									},
-									"status": "Bad Request",
-									"code": 400,
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "Content-Type",
-											"value": "application/json",
-											"description": "",
-											"type": "text"
-										}
-									],
-									"cookie": [],
-									"body": "{\n    \"statusCode\": 400,\n    \"error\": {\n        \"message\": \"This phone number is unknown, please register first.\"\n    },\n    \"name\": \"BadRequest\"\n}"
-								},
-								{
 									"name": "change password error - password mismatch",
 									"originalRequest": {
 										"method": "POST",
@@ -1493,7 +1454,7 @@
 										"request-otp"
 									]
 								},
-								"description": "Request an OTP for a specified phone number. Implement rate-limiting API on this endpoint. Maximum 1 time per minute, with total 5 times per 3 hours.\n\n#### Parameters\n\n| Parameter | Required | Type | Value | Description |\n| --- | --- | --- | --- | --- |\n| phone_number | true | string | +62818151010 | Telephone number |"
+								"description": "Request an OTP for a specified phone number. Implement rate-limiting API on this endpoint. Maximum 1 time per minute, with total 5 times per 3 hours.\n\nIn response, `request_time` is unix timestamp marking when the OTP request is made. `count` is the number of times OTP has been requested in the past 3 hours. `max_count` is the request limit for 3-hour period.\n\nIf the requested phone number is unknown, server will still return as if phone number is valid. This is to prevent attacker brute forcing our API to gain list of registered user.\n\n#### Parameters\n\n| Parameter | Required | Type | Value | Description |\n| --- | --- | --- | --- | --- |\n| phone_number | true | string | +62818151010 | Telephone number |"
 							},
 							"response": [
 								{
@@ -1517,9 +1478,13 @@
 											}
 										},
 										"url": {
-											"raw": "{{url}}/auth/request-otp",
+											"raw": "https://08207307-bdbb-451a-be2c-156a6730a3da.mock.pstmn.io/auth/request-otp",
+											"protocol": "https",
 											"host": [
-												"{{url}}"
+												"08207307-bdbb-451a-be2c-156a6730a3da",
+												"mock",
+												"pstmn",
+												"io"
 											],
 											"path": [
 												"auth",
@@ -1529,7 +1494,7 @@
 									},
 									"status": "OK",
 									"code": 200,
-									"_postman_previewlanguage": null,
+									"_postman_previewlanguage": "json",
 									"header": [
 										{
 											"key": "Content-Type",
@@ -1539,10 +1504,10 @@
 										}
 									],
 									"cookie": [],
-									"body": "{\n    \"otp_token\": \"123456\"\n}"
+									"body": "{\n    \"request_time\": 1655948417,\n    \"count\": 3,\n    \"max_count\": 5,\n    \"message\": \"Token has been sent to requesting phone number.\"\n}"
 								},
 								{
-									"name": "request otp - phone unknown",
+									"name": "Request OTP Error - rate limited",
 									"originalRequest": {
 										"method": "POST",
 										"header": [
@@ -1572,8 +1537,8 @@
 											]
 										}
 									},
-									"status": "Bad Request",
-									"code": 400,
+									"status": "Forbidden",
+									"code": 403,
 									"_postman_previewlanguage": "json",
 									"header": [
 										{
@@ -1584,7 +1549,7 @@
 										}
 									],
 									"cookie": [],
-									"body": "{\n    \"statusCode\": 400,\n    \"error\": {\n        \"message\": \"This phone number is unknown, please register first.\"\n    },\n    \"name\": \"BadRequest\"\n}"
+									"body": "{\n    \"statusCode\": 403,\n    \"error\": {\n        \"message\": \"Max OTP request limit exceeded. Please wait before making another request.\"\n    },\n    \"name\": \"Forbidden\"\n}"
 								}
 							]
 						},
