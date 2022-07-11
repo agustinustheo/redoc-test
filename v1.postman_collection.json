@@ -2291,9 +2291,13 @@
 											}
 										},
 										"url": {
-											"raw": "{{url}}/pool/stake",
+											"raw": "https://08207307-bdbb-451a-be2c-156a6730a3da.mock.pstmn.io/pool/stake",
+											"protocol": "https",
 											"host": [
-												"{{url}}"
+												"08207307-bdbb-451a-be2c-156a6730a3da",
+												"mock",
+												"pstmn",
+												"io"
 											],
 											"path": [
 												"pool",
@@ -2431,9 +2435,13 @@
 											}
 										},
 										"url": {
-											"raw": "{{url}}/pool/unstake",
+											"raw": "https://08207307-bdbb-451a-be2c-156a6730a3da.mock.pstmn.io/pool/unstake",
+											"protocol": "https",
 											"host": [
-												"{{url}}"
+												"08207307-bdbb-451a-be2c-156a6730a3da",
+												"mock",
+												"pstmn",
+												"io"
 											],
 											"path": [
 												"pool",
@@ -2538,9 +2546,13 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{url}}/pool/unstake/my",
+											"raw": "https://08207307-bdbb-451a-be2c-156a6730a3da.mock.pstmn.io/pool/unstake/my",
+											"protocol": "https",
 											"host": [
-												"{{url}}"
+												"08207307-bdbb-451a-be2c-156a6730a3da",
+												"mock",
+												"pstmn",
+												"io"
 											],
 											"path": [
 												"pool",
@@ -2601,9 +2613,13 @@
 											}
 										],
 										"url": {
-											"raw": "{{url}}/pool/2f391549-d3e0-4d39-9245-515c0d99c4fb",
+											"raw": "https://08207307-bdbb-451a-be2c-156a6730a3da.mock.pstmn.io/pool/2f391549-d3e0-4d39-9245-515c0d99c4fb",
+											"protocol": "https",
 											"host": [
-												"{{url}}"
+												"08207307-bdbb-451a-be2c-156a6730a3da",
+												"mock",
+												"pstmn",
+												"io"
 											],
 											"path": [
 												"pool",
@@ -2704,9 +2720,13 @@
 											}
 										],
 										"url": {
-											"raw": "{{url}}/wallet/history",
+											"raw": "https://08207307-bdbb-451a-be2c-156a6730a3da.mock.pstmn.io/wallet/history",
+											"protocol": "https",
 											"host": [
-												"{{url}}"
+												"08207307-bdbb-451a-be2c-156a6730a3da",
+												"mock",
+												"pstmn",
+												"io"
 											],
 											"path": [
 												"wallet",
@@ -2726,7 +2746,7 @@
 										}
 									],
 									"cookie": [],
-									"body": "{\n    \"page\": 1,\n    \"last_page\": 2,\n    \"total_hits\": 20,\n    \"result\": [\n        {\n            \"id\": 9511,\n            \"code\": 111,\n            \"block_tx\": \"3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v\",\n            \"network\": \"solana\",\n            \"name\": \"top up\",\n            \"timestamp\": 1657511255,\n            \"amount\": 500000000000,\n            \"ui_amount\": 500,\n            \"unit\": \"gidr\",\n            \"extra\": {\n                \"source\": \"bank transfer\",\n                \"source_account\": \"2441880809\",\n                \"source_bank\": \"BCA\",\n                \"transaction_reference\": 18975465164,\n                \"timestamp\": 1657511155\n            }\n        },\n        {\n            \"id\": 9512,\n            \"code\": 112,\n            \"solana_tx\": \"3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v\",\n            \"network\": \"solana\",\n            \"name\": \"top up\",\n            \"timestamp\": 1657511255,\n            \"amount\": 350000000000,\n            \"ui_amount\": 350,\n            \"unit\": \"gidr\",\n            \"extra\": {\n                \"source\": \"virtual account\",\n                \"source_account\": \"018777081318510160\",\n                \"source_bank\": \"BCA\",\n                \"transaction_reference\": 18975465164,\n                \"timestamp\": 1657511155\n            }\n        },\n        {\n            \"id\": 9513,\n            \"code\": 211,\n            \"solana_tx\": \"3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v\",\n            \"network\": \"solana\",\n            \"name\": \"redeem\",\n            \"timestamp\": 1657511155,\n            \"amount\": 750000000000,\n            \"ui_amount\": 750,\n            \"unit\": \"gidr\",\n            \"extra\": {\n                \"dest_account\" :\"24419892563\",\n                \"dest_bank\": \"BCA\",\n                \"transaction_reference\": 18975465164,\n                \"timestamp\":1657511155\n            }\n        },\n        {\n            \"id\": 9514,\n            \"code\": 301,\n            \"solana_tx\": \"3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v\",\n            \"network\": \"solana\",\n            \"name\": \"staking\",\n            \"timestamp\": 1657511155,\n            \"amount\": 1000000000000,\n            \"ui_amount\": 1000,\n            \"unit\": \"gidr\",\n            \"extra\": {\n                \"pool_uuid\": \"2f391549-d3e0-4d39-9245-515c0d99c4fb\",\n                \"timestamp\": 1657511155\n            }\n        },\n        {\n            \"id\": 9515,\n            \"code\": 311,\n            \"solana_tx\": \"3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v\",\n            \"network\": \"solana\",\n            \"name\": \"unstaking\",\n            \"timestamp\": 1657511155,\n            \"amount\": 250000000000,\n            \"ui_amount\": 250,\n            \"unit\": \"gidr\",\n            \"extra\": {\n                \"pool_uuid\": \"2f391549-d3e0-4d39-9245-515c0d99c4fb\",\n                \"timestamp\": 1657511155\n            }\n        },\n        {\n            \"id\": 9516,\n            \"code\": 401,\n            \"solana_tx\":\"3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v\",\n            \"network\": \"solana\",\n            \"name\": \"revenue distribution\",\n            \"timestamp\": 1657511155,\n            \"amount\": 15000000000,\n            \"ui_amount\": 15,\n            \"unit\": \"gidr\",\n            \"extra\": {\n                \"pool_uuid\": \"2f391549-d3e0-4d39-9245-515c0d99c4fb\",\n                \"return_bps\": 20\n            }\n        },\n        {\n            \"id\": 9517,\n            \"code\": 411,\n            \"solana_tx\": \"3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v\",\n            \"network\": \"solana\",\n            \"name\": \"loss socialization\",\n            \"timestamp\": 1657511155,\n            \"amount\": 10000000000,\n            \"ui_amount\": 10,\n            \"unit\": \"gidr\",\n            \"extra\": {\n                \"pool_uuid\": \"087b1171-d74a-4aa4-b121-1d5f37c0b14d\",\n                \"return_bps\": -20\n            }\n        },\n        {\n            \"id\": 9518,\n            \"code\": 501,\n            \"solana_tx\": \"3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v\",\n            \"network\": \"solana\",\n            \"name\": \"transfer in\",\n            \"timestamp\": 1657511155,\n            \"amount\": 500000000000,\n            \"ui_amount\": 500,\n            \"unit\": \"gidr\",\n            \"extra\": {\n                \"source\": \"9RSXWuo2fvGLU85SsK5YJsNuDhm9VBdKf4mZqHDMMAm5\",\n                \"destination\": \"2wY1UbwmS2ZqdiJbst74K1XJmCQGhoU2wyV6jGTuvAka\"\n            }\n        },\n        {\n            \"id\": 9519,\n            \"code\": 511,\n            \"solana_tx\": \"3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v\",\n            \"network\": \"solana\",\n            \"name\": \"transfer out\",\n            \"timestamp\": 1657511155,\n            \"amount\": 25000000000,\n            \"ui_amount\": 25,\n            \"unit\": \"gidr\",\n            \"extra\": {\n                \"source\": \"2wY1UbwmS2ZqdiJbst74K1XJmCQGhoU2wyV6jGTuvAka\",\n                \"destination\": \"9RSXWuo2fvGLU85SsK5YJsNuDhm9VBdKf4mZqHDMMAm5\"\n            }\n        }\n    ]\n}"
+									"body": "{\n    \"page\": 1,\n    \"last_page\": 2,\n    \"total_hits\": 20,\n    \"result\": [\n        {\n            \"id\": 9511,\n            \"code\": 111,\n            \"block_tx\": \"3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v\",\n            \"network\": \"solana\",\n            \"name\": \"top up\",\n            \"timestamp\": 1657511255,\n            \"amount\": 500000000000,\n            \"ui_amount\": 500,\n            \"unit\": \"gidr\",\n            \"extra\": {\n                \"source\": \"bank transfer\",\n                \"source_account\": \"2441880809\",\n                \"source_bank\": \"BCA\",\n                \"transaction_reference\": \"18975465164\",\n                \"timestamp\": 1657511155\n            }\n        },\n        {\n            \"id\": 9512,\n            \"code\": 112,\n            \"solana_tx\": \"3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v\",\n            \"network\": \"solana\",\n            \"name\": \"top up\",\n            \"timestamp\": 1657511255,\n            \"amount\": 350000000000,\n            \"ui_amount\": 350,\n            \"unit\": \"gidr\",\n            \"extra\": {\n                \"source\": \"virtual account\",\n                \"source_account\": \"018777081318510160\",\n                \"source_bank\": \"BCA\",\n                \"transaction_reference\": \"18975465164\",\n                \"timestamp\": 1657511155\n            }\n        },\n        {\n            \"id\": 9513,\n            \"code\": 211,\n            \"solana_tx\": \"3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v\",\n            \"network\": \"solana\",\n            \"name\": \"redeem\",\n            \"timestamp\": 1657511155,\n            \"amount\": 750000000000,\n            \"ui_amount\": 750,\n            \"unit\": \"gidr\",\n            \"extra\": {\n                \"dest_account\" :\"24419892563\",\n                \"dest_bank\": \"BCA\",\n                \"transaction_reference\": \"18975465164\",\n                \"timestamp\":1657511155\n            }\n        },\n        {\n            \"id\": 9514,\n            \"code\": 301,\n            \"solana_tx\": \"3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v\",\n            \"network\": \"solana\",\n            \"name\": \"staking\",\n            \"timestamp\": 1657511155,\n            \"amount\": 1000000000000,\n            \"ui_amount\": 1000,\n            \"unit\": \"gidr\",\n            \"extra\": {\n                \"pool_uuid\": \"2f391549-d3e0-4d39-9245-515c0d99c4fb\",\n                \"timestamp\": 1657511155\n            }\n        },\n        {\n            \"id\": 9515,\n            \"code\": 311,\n            \"solana_tx\": \"3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v\",\n            \"network\": \"solana\",\n            \"name\": \"unstaking\",\n            \"timestamp\": 1657511155,\n            \"amount\": 250000000000,\n            \"ui_amount\": 250,\n            \"unit\": \"gidr\",\n            \"extra\": {\n                \"pool_uuid\": \"2f391549-d3e0-4d39-9245-515c0d99c4fb\",\n                \"timestamp\": 1657511155\n            }\n        },\n        {\n            \"id\": 9516,\n            \"code\": 401,\n            \"solana_tx\":\"3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v\",\n            \"network\": \"solana\",\n            \"name\": \"revenue distribution\",\n            \"timestamp\": 1657511155,\n            \"amount\": 15000000000,\n            \"ui_amount\": 15,\n            \"unit\": \"gidr\",\n            \"extra\": {\n                \"pool_uuid\": \"2f391549-d3e0-4d39-9245-515c0d99c4fb\",\n                \"return_bps\": 20\n            }\n        },\n        {\n            \"id\": 9517,\n            \"code\": 411,\n            \"solana_tx\": \"3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v\",\n            \"network\": \"solana\",\n            \"name\": \"loss socialization\",\n            \"timestamp\": 1657511155,\n            \"amount\": 10000000000,\n            \"ui_amount\": 10,\n            \"unit\": \"gidr\",\n            \"extra\": {\n                \"pool_uuid\": \"087b1171-d74a-4aa4-b121-1d5f37c0b14d\",\n                \"return_bps\": -20\n            }\n        },\n        {\n            \"id\": 9518,\n            \"code\": 501,\n            \"solana_tx\": \"3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v\",\n            \"network\": \"solana\",\n            \"name\": \"transfer in\",\n            \"timestamp\": 1657511155,\n            \"amount\": 500000000000,\n            \"ui_amount\": 500,\n            \"unit\": \"gidr\",\n            \"extra\": {\n                \"source\": \"9RSXWuo2fvGLU85SsK5YJsNuDhm9VBdKf4mZqHDMMAm5\",\n                \"destination\": \"2wY1UbwmS2ZqdiJbst74K1XJmCQGhoU2wyV6jGTuvAka\"\n            }\n        },\n        {\n            \"id\": 9519,\n            \"code\": 511,\n            \"solana_tx\": \"3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v\",\n            \"network\": \"solana\",\n            \"name\": \"transfer out\",\n            \"timestamp\": 1657511155,\n            \"amount\": 25000000000,\n            \"ui_amount\": 25,\n            \"unit\": \"gidr\",\n            \"extra\": {\n                \"source\": \"2wY1UbwmS2ZqdiJbst74K1XJmCQGhoU2wyV6jGTuvAka\",\n                \"destination\": \"9RSXWuo2fvGLU85SsK5YJsNuDhm9VBdKf4mZqHDMMAm5\"\n            }\n        }\n    ]\n}"
 								},
 								{
 									"name": "Transaction history - Success Copy",
@@ -2769,7 +2789,136 @@
 										}
 									],
 									"cookie": [],
-									"body": "{\n    \"page\": 2,\n    \"last_page\": 2,\n    \"total_hits\": 20,\n    \"result\": [\n        {\n            \"id\": 9511,\n            \"code\": 111,\n            \"block_tx\": \"3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v\",\n            \"network\": \"solana\",\n            \"name\": \"top up\",\n            \"timestamp\": 1657511255,\n            \"amount\": 500000000000,\n            \"ui_amount\": 500,\n            \"unit\": \"gidr\",\n            \"extra\": {\n                \"source\": \"bank transfer\",\n                \"source_account\": \"2441880809\",\n                \"source_bank\": \"BCA\",\n                \"transaction_reference\": 18975465164,\n                \"timestamp\": 1657511155\n            }\n        },\n        {\n            \"id\": 9512,\n            \"code\": 112,\n            \"solana_tx\": \"3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v\",\n            \"network\": \"solana\",\n            \"name\": \"top up\",\n            \"timestamp\": 1657511255,\n            \"amount\": 350000000000,\n            \"ui_amount\": 350,\n            \"unit\": \"gidr\",\n            \"extra\": {\n                \"source\": \"virtual account\",\n                \"source_account\": \"018777081318510160\",\n                \"source_bank\": \"BCA\",\n                \"transaction_reference\": 18975465164,\n                \"timestamp\": 1657511155\n            }\n        },\n        {\n            \"id\": 9513,\n            \"code\": 211,\n            \"solana_tx\": \"3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v\",\n            \"network\": \"solana\",\n            \"name\": \"redeem\",\n            \"timestamp\": 1657511155,\n            \"amount\": 750000000000,\n            \"ui_amount\": 750,\n            \"unit\": \"gidr\",\n            \"extra\": {\n                \"dest_account\" :\"24419892563\",\n                \"dest_bank\": \"BCA\",\n                \"transaction_reference\": 18975465164,\n                \"timestamp\":1657511155\n            }\n        },\n        {\n            \"id\": 9514,\n            \"code\": 301,\n            \"solana_tx\": \"3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v\",\n            \"network\": \"solana\",\n            \"name\": \"staking\",\n            \"timestamp\": 1657511155,\n            \"amount\": 1000000000000,\n            \"ui_amount\": 1000,\n            \"unit\": \"gidr\",\n            \"extra\": {\n                \"pool_uuid\": \"2f391549-d3e0-4d39-9245-515c0d99c4fb\",\n                \"timestamp\": 1657511155\n            }\n        },\n        {\n            \"id\": 9515,\n            \"code\": 311,\n            \"solana_tx\": \"3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v\",\n            \"network\": \"solana\",\n            \"name\": \"unstaking\",\n            \"timestamp\": 1657511155,\n            \"amount\": 250000000000,\n            \"ui_amount\": 250,\n            \"unit\": \"gidr\",\n            \"extra\": {\n                \"pool_uuid\": \"2f391549-d3e0-4d39-9245-515c0d99c4fb\",\n                \"timestamp\": 1657511155\n            }\n        },\n        {\n            \"id\": 9516,\n            \"code\": 401,\n            \"solana_tx\":\"3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v\",\n            \"network\": \"solana\",\n            \"name\": \"revenue distribution\",\n            \"timestamp\": 1657511155,\n            \"amount\": 15000000000,\n            \"ui_amount\": 15,\n            \"unit\": \"gidr\",\n            \"extra\": {\n                \"pool_uuid\": \"2f391549-d3e0-4d39-9245-515c0d99c4fb\",\n                \"return_bps\": 20\n            }\n        },\n        {\n            \"id\": 9517,\n            \"code\": 411,\n            \"solana_tx\": \"3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v\",\n            \"network\": \"solana\",\n            \"name\": \"loss socialization\",\n            \"timestamp\": 1657511155,\n            \"amount\": 10000000000,\n            \"ui_amount\": 10,\n            \"unit\": \"gidr\",\n            \"extra\": {\n                \"pool_uuid\": \"087b1171-d74a-4aa4-b121-1d5f37c0b14d\",\n                \"return_bps\": -20\n            }\n        },\n        {\n            \"id\": 9518,\n            \"code\": 501,\n            \"solana_tx\": \"3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v\",\n            \"network\": \"solana\",\n            \"name\": \"transfer in\",\n            \"timestamp\": 1657511155,\n            \"amount\": 500000000000,\n            \"ui_amount\": 500,\n            \"unit\": \"gidr\",\n            \"extra\": {\n                \"source\": \"9RSXWuo2fvGLU85SsK5YJsNuDhm9VBdKf4mZqHDMMAm5\",\n                \"destination\": \"2wY1UbwmS2ZqdiJbst74K1XJmCQGhoU2wyV6jGTuvAka\"\n            }\n        },\n        {\n            \"id\": 9519,\n            \"code\": 511,\n            \"solana_tx\": \"3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v\",\n            \"network\": \"solana\",\n            \"name\": \"transfer out\",\n            \"timestamp\": 1657511155,\n            \"amount\": 25000000000,\n            \"ui_amount\": 25,\n            \"unit\": \"gidr\",\n            \"extra\": {\n                \"source\": \"2wY1UbwmS2ZqdiJbst74K1XJmCQGhoU2wyV6jGTuvAka\",\n                \"destination\": \"9RSXWuo2fvGLU85SsK5YJsNuDhm9VBdKf4mZqHDMMAm5\"\n            }\n        }\n    ]\n}"
+									"body": "{\n    \"page\": 2,\n    \"last_page\": 2,\n    \"total_hits\": 20,\n    \"result\": [\n        {\n            \"id\": 9511,\n            \"code\": 111,\n            \"block_tx\": \"3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v\",\n            \"network\": \"solana\",\n            \"name\": \"top up\",\n            \"timestamp\": 1657511255,\n            \"amount\": 500000000000,\n            \"ui_amount\": 500,\n            \"unit\": \"gidr\",\n            \"extra\": {\n                \"source\": \"bank transfer\",\n                \"source_account\": \"2441880809\",\n                \"source_bank\": \"BCA\",\n                \"transaction_reference\": \"18975465164\",\n                \"timestamp\": 1657511155\n            }\n        },\n        {\n            \"id\": 9512,\n            \"code\": 112,\n            \"solana_tx\": \"3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v\",\n            \"network\": \"solana\",\n            \"name\": \"top up\",\n            \"timestamp\": 1657511255,\n            \"amount\": 350000000000,\n            \"ui_amount\": 350,\n            \"unit\": \"gidr\",\n            \"extra\": {\n                \"source\": \"virtual account\",\n                \"source_account\": \"018777081318510160\",\n                \"source_bank\": \"BCA\",\n                \"transaction_reference\": \"18975465164\",\n                \"timestamp\": 1657511155\n            }\n        },\n        {\n            \"id\": 9513,\n            \"code\": 211,\n            \"solana_tx\": \"3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v\",\n            \"network\": \"solana\",\n            \"name\": \"redeem\",\n            \"timestamp\": 1657511155,\n            \"amount\": 750000000000,\n            \"ui_amount\": 750,\n            \"unit\": \"gidr\",\n            \"extra\": {\n                \"dest_account\" :\"24419892563\",\n                \"dest_bank\": \"BCA\",\n                \"transaction_reference\": \"18975465164\",\n                \"timestamp\":1657511155\n            }\n        },\n        {\n            \"id\": 9514,\n            \"code\": 301,\n            \"solana_tx\": \"3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v\",\n            \"network\": \"solana\",\n            \"name\": \"staking\",\n            \"timestamp\": 1657511155,\n            \"amount\": 1000000000000,\n            \"ui_amount\": 1000,\n            \"unit\": \"gidr\",\n            \"extra\": {\n                \"pool_uuid\": \"2f391549-d3e0-4d39-9245-515c0d99c4fb\",\n                \"timestamp\": 1657511155\n            }\n        },\n        {\n            \"id\": 9515,\n            \"code\": 311,\n            \"solana_tx\": \"3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v\",\n            \"network\": \"solana\",\n            \"name\": \"unstaking\",\n            \"timestamp\": 1657511155,\n            \"amount\": 250000000000,\n            \"ui_amount\": 250,\n            \"unit\": \"gidr\",\n            \"extra\": {\n                \"pool_uuid\": \"2f391549-d3e0-4d39-9245-515c0d99c4fb\",\n                \"timestamp\": 1657511155\n            }\n        },\n        {\n            \"id\": 9516,\n            \"code\": 401,\n            \"solana_tx\":\"3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v\",\n            \"network\": \"solana\",\n            \"name\": \"revenue distribution\",\n            \"timestamp\": 1657511155,\n            \"amount\": 15000000000,\n            \"ui_amount\": 15,\n            \"unit\": \"gidr\",\n            \"extra\": {\n                \"pool_uuid\": \"2f391549-d3e0-4d39-9245-515c0d99c4fb\",\n                \"return_bps\": 20\n            }\n        },\n        {\n            \"id\": 9517,\n            \"code\": 411,\n            \"solana_tx\": \"3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v\",\n            \"network\": \"solana\",\n            \"name\": \"loss socialization\",\n            \"timestamp\": 1657511155,\n            \"amount\": 10000000000,\n            \"ui_amount\": 10,\n            \"unit\": \"gidr\",\n            \"extra\": {\n                \"pool_uuid\": \"087b1171-d74a-4aa4-b121-1d5f37c0b14d\",\n                \"return_bps\": -20\n            }\n        },\n        {\n            \"id\": 9518,\n            \"code\": 501,\n            \"solana_tx\": \"3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v\",\n            \"network\": \"solana\",\n            \"name\": \"transfer in\",\n            \"timestamp\": 1657511155,\n            \"amount\": 500000000000,\n            \"ui_amount\": 500,\n            \"unit\": \"gidr\",\n            \"extra\": {\n                \"source\": \"9RSXWuo2fvGLU85SsK5YJsNuDhm9VBdKf4mZqHDMMAm5\",\n                \"destination\": \"2wY1UbwmS2ZqdiJbst74K1XJmCQGhoU2wyV6jGTuvAka\"\n            }\n        },\n        {\n            \"id\": 9519,\n            \"code\": 511,\n            \"solana_tx\": \"3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v\",\n            \"network\": \"solana\",\n            \"name\": \"transfer out\",\n            \"timestamp\": 1657511155,\n            \"amount\": 25000000000,\n            \"ui_amount\": 25,\n            \"unit\": \"gidr\",\n            \"extra\": {\n                \"source\": \"2wY1UbwmS2ZqdiJbst74K1XJmCQGhoU2wyV6jGTuvAka\",\n                \"destination\": \"9RSXWuo2fvGLU85SsK5YJsNuDhm9VBdKf4mZqHDMMAm5\"\n            }\n        }\n    ]\n}"
+								}
+							]
+						},
+						{
+							"name": "Transaction detail",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer <access_token>",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/wallet/transaction/9515",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"wallet",
+										"transaction",
+										"9515"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Transaction detail - Success",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "https://08207307-bdbb-451a-be2c-156a6730a3da.mock.pstmn.io/wallet/transaction/9515",
+											"protocol": "https",
+											"host": [
+												"08207307-bdbb-451a-be2c-156a6730a3da",
+												"mock",
+												"pstmn",
+												"io"
+											],
+											"path": [
+												"wallet",
+												"transaction",
+												"9515"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json",
+											"description": "",
+											"type": "text"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"id\": 9515,\n    \"code\": 311,\n    \"solana_tx\": \"3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v\",\n    \"network\": \"solana\",\n    \"name\": \"unstaking\",\n    \"timestamp\": 1657511155,\n    \"amount\": 250000000000,\n    \"ui_amount\": 250,\n    \"unit\": \"gidr\",\n    \"extra\": {\n        \"pool_uuid\": \"2f391549-d3e0-4d39-9245-515c0d99c4fb\",\n        \"timestamp\": 1657511155\n    }\n}"
+								},
+								{
+									"name": "Transaction detail - Success Copy",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/wallet/transaction/9511",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"wallet",
+												"transaction",
+												"9511"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json",
+											"description": "",
+											"type": "text"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"id\": 9511,\n    \"code\": 111,\n    \"block_tx\": \"3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v\",\n    \"network\": \"solana\",\n    \"name\": \"top up\",\n    \"timestamp\": 1657511255,\n    \"amount\": 500000000000,\n    \"ui_amount\": 500,\n    \"unit\": \"gidr\",\n    \"extra\": {\n        \"source\": \"bank transfer\",\n        \"source_account\": \"2441880809\",\n        \"source_bank\": \"BCA\",\n        \"transaction_reference\": \"18975465164\",\n        \"timestamp\": 1657511155\n    }\n}"
+								},
+								{
+									"name": "Transaction detail - Error - not found",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer <access_token>",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{url}}/wallet/transaction/9510",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"wallet",
+												"transaction",
+												"9510"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json",
+											"description": "",
+											"type": "text"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"statusCode\": 404,\n    \"error\": {\n        \"message\": \"Transaction id 9510 not found.\"\n    },\n    \"name\": \"NotFoundError\"\n}"
 								}
 							]
 						}

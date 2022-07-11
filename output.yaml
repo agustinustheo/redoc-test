@@ -1735,7 +1735,7 @@ paths:
                           source: bank transfer
                           source_account: '2441880809'
                           source_bank: BCA
-                          transaction_reference: 18975465164
+                          transaction_reference: '18975465164'
                           timestamp: 1657511155
                       - id: 9512
                         code: 112
@@ -1751,7 +1751,7 @@ paths:
                           source: virtual account
                           source_account: '018777081318510160'
                           source_bank: BCA
-                          transaction_reference: 18975465164
+                          transaction_reference: '18975465164'
                           timestamp: 1657511155
                       - id: 9513
                         code: 211
@@ -1766,7 +1766,7 @@ paths:
                         extra:
                           dest_account: '24419892563'
                           dest_bank: BCA
-                          transaction_reference: 18975465164
+                          transaction_reference: '18975465164'
                           timestamp: 1657511155
                       - id: 9514
                         code: 301
@@ -1867,7 +1867,7 @@ paths:
                           source: bank transfer
                           source_account: '2441880809'
                           source_bank: BCA
-                          transaction_reference: 18975465164
+                          transaction_reference: '18975465164'
                           timestamp: 1657511155
                       - id: 9512
                         code: 112
@@ -1883,7 +1883,7 @@ paths:
                           source: virtual account
                           source_account: '018777081318510160'
                           source_bank: BCA
-                          transaction_reference: 18975465164
+                          transaction_reference: '18975465164'
                           timestamp: 1657511155
                       - id: 9513
                         code: 211
@@ -1898,7 +1898,7 @@ paths:
                         extra:
                           dest_account: '24419892563'
                           dest_bank: BCA
-                          transaction_reference: 18975465164
+                          transaction_reference: '18975465164'
                           timestamp: 1657511155
                       - id: 9514
                         code: 301
@@ -1978,3 +1978,78 @@ paths:
                         extra:
                           source: 2wY1UbwmS2ZqdiJbst74K1XJmCQGhoU2wyV6jGTuvAka
                           destination: 9RSXWuo2fvGLU85SsK5YJsNuDhm9VBdKf4mZqHDMMAm5
+  /wallet/transaction/9515:
+    get:
+      tags:
+        - User > Wallet
+      summary: Transaction detail
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: Bearer <access_token>
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                example-0:
+                  summary: Transaction detail - Success
+                  value:
+                    id: 9515
+                    code: 311
+                    solana_tx: >-
+                      3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v
+                    network: solana
+                    name: unstaking
+                    timestamp: 1657511155
+                    amount: 250000000000
+                    ui_amount: 250
+                    unit: gidr
+                    extra:
+                      pool_uuid: 2f391549-d3e0-4d39-9245-515c0d99c4fb
+                      timestamp: 1657511155
+                example-1:
+                  summary: Transaction detail - Success Copy
+                  value:
+                    id: 9511
+                    code: 111
+                    block_tx: >-
+                      3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v
+                    network: solana
+                    name: top up
+                    timestamp: 1657511255
+                    amount: 500000000000
+                    ui_amount: 500
+                    unit: gidr
+                    extra:
+                      source: bank transfer
+                      source_account: '2441880809'
+                      source_bank: BCA
+                      transaction_reference: '18975465164'
+                      timestamp: 1657511155
+        '404':
+          description: Not Found
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                statusCode: 404
+                error:
+                  message: Transaction id 9510 not found.
+                name: NotFoundError
