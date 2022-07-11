@@ -2,14 +2,448 @@
 	"info": {
 		"_postman_id": "4cabdd1e-2f4e-4dee-9344-2b4654d242f0",
 		"name": "v1",
-		"description": "Welcome to Garuda Stablecoin API Docs.\nThis document is for internal use only. You are prohibited from sharing all contents of this documents to any external third party without Elbert's / Dendi's permission.\n\nAll endpoints return either a JSON object or array regardless of success / error response.\n\nNote: All request headers `x-mock-*` are postman related. Please disregard this headers in your code.\n\nThis API docs is still a draft. Thus, if you spot any mistake, typo, or just something what wouldn't make sense, let me (Elbert) know. Example of things that doesn't make sense:\n1. Double slash in endpoint.\n2. Different parameter name between request body and `parameters` table.\n3. Inconsistencies (e.g. variable or parameter name), typo, etc.",
+		"description": "Welcome to Garuda Stablecoin API Docs.\nThis document is for internal use only. You are prohibited from sharing all contents of this documents to any external third party without Elbert's / Dendi's permission.\n\nAll endpoints return either a JSON object or array regardless of success / error response.\n\nNote: All request headers `x-mock-*` are postman related. Please disregard this headers in your code.\n\nThis API docs is still a draft. Thus, if you spot any mistake, typo, or just something what wouldn't make sense, let me (Elbert) know. Example of things that doesn't make sense:\n1. Double slash in endpoint.\n2. Different parameter name between request body and `parameters` table.\n3. Inconsistencies (e.g. variable or parameter name), typo, etc.\n\n\n# Notes on GET request\n\n#### Sorting\nUser can sort by adding _get paramaters_ such as `/pool/unstake/my?sort_by=date_created` for sorting by date created ascending wise and `/pool/unstake/my?sort_by=-date_created` for descending. Every field returned by the API can be sorted.\n\n#### Filtering\nUser can filter their request by adding _get parameters_ such as `/pool/unstake/my?status=APPROVED`.\n\n#### Paging\nUser can request which page to return, by adding _page_ in _get parameters_, such as `/pool/unstake/my?page=1`.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "14935788"
 	},
 	"item": [
 		{
 			"name": "Admin",
-			"item": []
+			"item": [
+				{
+					"name": "Pools",
+					"item": [
+						{
+							"name": "Approve unstake request",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-mock-match-request-body",
+										"value": "true",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"pool_uuid\": \"2f391549-d3e0-4d39-9245-515c0d99c4fb\",\n    \"queue_uuid\": \"de044268-6e84-4f09-b626-2c885e03379f\",\n    \"action\": \"approve\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/pool/unstake/request",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"pool",
+										"unstake",
+										"request"
+									]
+								},
+								"description": "Approve or reject unstake request. If request is approved, exchange of cToken and GIDR will happen.\n\n#### Parameters\n\n| Parameter | Required | Type | Value | Description |\n| --- | --- | --- | --- | --- |\n| pool_uuid | true | string | 1837dd24-0d7a-4ddc-af9a-9384f5807915 | Pool's uuid |\n| queue_uuid | true | string | cff2765a-8216-499c-9387-49ddd8f361a5 | Queue uuid |\n| action | true | string | approve / reject | String to pick action |\n\n\n#### Action\n| Value | Description |\n| --- | --- |\n| approve | Approve the request. |\n| reject | Reject the request. |"
+							},
+							"response": [
+								{
+									"name": "Approve unstake request - Success",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer <access_token>",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"pool_uuid\": \"2f391549-d3e0-4d39-9245-515c0d99c4fb\",\n    \"queue_uuid\": \"de044268-6e84-4f09-b626-2c885e03379f\",\n    \"action\": \"approve\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url}}/pool/unstake/request",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"pool",
+												"unstake",
+												"request"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json",
+											"description": "",
+											"type": "text"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"pool_uuid\": \"2f391549-d3e0-4d39-9245-515c0d99c4fb\",\n    \"queue_uuid\": \"de044268-6e84-4f09-b626-2c885e03379f\",\n    \"user_wallet\": \"9RSXWuo2fvGLU85SsK5YJsNuDhm9VBdKf4mZqHDMMAm5\",\n    \"amount\": 400000000000,\n    \"status\": \"approved\",\n    \"date_created\": 1656143188611,\n    \"date_decision\": 1656209689233\n}"
+								},
+								{
+									"name": "Approve unstake request - Error - wrong queue id",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer <access_token>",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"pool_uuid\": \"2f391549-d3e0-4d39-9245-515c0d99c4fb\",\n    \"queue_uuid\": \"de044268-6e84-4f09-b626-2c885e03379d\",\n    \"action\": \"approve\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url}}/pool/unstake/request",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"pool",
+												"unstake",
+												"request"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json",
+											"description": "",
+											"type": "text"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"statusCode\": 404,\n    \"error\": {\n        \"message\": \"Failed to get queue.\"\n    },\n    \"name\": \"NotFoundError\"\n}"
+								},
+								{
+									"name": "Approve unstake request - Error - insufficient fund",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"pool_uuid\": \"2f391549-d3e0-4d39-9245-515c0d99c4fb\",\n    \"queue_uuid\": \"de044268-6e84-4f09-b626-2c885e03379e\",\n    \"action\": \"approve\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url}}/pool/unstake/request",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"pool",
+												"unstake",
+												"request"
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json",
+											"description": "",
+											"type": "text"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"statusCode\": 400,\n    \"error\": {\n        \"message\": \"User does not have enough balance.\"\n    },\n    \"name\": \"NotEnoughBalance\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Create pool",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/temp",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"temp"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Disburse",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-mock-match-request-body",
+										"value": "true",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"pool_uuid\": \"2f391549-d3e0-4d39-9245-515c0d99c4fb\",\n    \"wallet\": \"8GmHzaNXivwa66AutXbDPNoQoTwniBHLFPSZ18mDWWHy\",\n    \"amount\": 2050000000000\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/pool/disburse",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"pool",
+										"disburse"
+									]
+								},
+								"description": "Disburse pool's GIDR to a wallet. Wallet holder could be:\n\n1.  Asset management, in the context of MMI.\n2.  Scholarship receiver, in the context of scholarship pool.\n    \n\nThis is usually used in pool without governance, thus, disbursement is done  \nby Jagad's admin.\n\n#### Parameters\n\n| Parameter | Required | Type | Value | Description |\n| --- | --- | --- | --- | --- |\n| pool_uuid | true | string | 10ec89be-ee28-45b6-996f-074f4cc653a4 | Pool's UUID |\n| wallet | true | string | 9RSXWuo2fvGLU85SsK5YJsNuDhm9VBdKf4mZqHDMMAm5 | Wallet address to receive fund |\n| amount | true | number | 2050000000000 | Amount of GIDR to disbursed with full 9 decimals |\n\n\n#### Errors\n_invalid wallet_\nWallet could be invalid due to several reasons:\n1. Wallet has invalid address\n2. Wallet is not registered\n3. Wallet doesn't have the right role for the pool."
+							},
+							"response": [
+								{
+									"name": "Disburse - Success",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"pool_uuid\": \"2f391549-d3e0-4d39-9245-515c0d99c4fb\",\n    \"wallet\": \"8GmHzaNXivwa66AutXbDPNoQoTwniBHLFPSZ18mDWWHy\",\n    \"amount\": 2050000000000\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url}}/pool/disburse",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"pool",
+												"disburse"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json",
+											"description": "",
+											"type": "text"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"pool_uuid\": \"2f391549-d3e0-4d39-9245-515c0d99c4fb\",\n    \"wallet\": \"9RSXWuo2fvGLU85SsK5YJsNuDhm9VBdKf4mZqHDMMAm5\",\n    \"amount\": 2050000000000,\n    \"network\": \"solana\"\n}"
+								},
+								{
+									"name": "Disburse - Error - pool has inssuficient fund",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"pool_uuid\": \"2f391549-d3e0-4d39-9245-515c0d99c4fb\",\n    \"wallet\": \"8GmHzaNXivwa66AutXbDPNoQoTwniBHLFPSZ18mDWWHy\",\n    \"amount\": 225000000000000\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url}}/pool/disburse",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"pool",
+												"disburse"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json",
+											"description": "",
+											"type": "text"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"statusCode\": 400,\n    \"error\": {\n        \"message\": \"Insufficient funds.\"\n    },\n    \"name\": \"NotEnoughBalance\"\n}"
+								},
+								{
+									"name": "Disburse - Error - incorrect role",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"pool_uuid\": \"2f391549-d3e0-4d39-9245-515c0d99c4fb\",\n    \"wallet\": \"9RSXWuo2fvGLU85SsK5YJsNuDhm9VBdKf4mZqHDMMAm5\",\n    \"amount\": 2050000000000\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url}}/pool/disburse",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"pool",
+												"disburse"
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json",
+											"description": "",
+											"type": "text"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"statusCode\": 400,\n    \"error\": {\n        \"message\": \"Wallet 9RSXWuo2fvGLU85SsK5YJsNuDhm9VBdKf4mZqHDMMAm5 must be registered as 'investee' in mmi pool, otherwise it cannot receive fund.\"\n    },\n    \"name\": \"PoolIncorrectRole\"\n}"
+								},
+								{
+									"name": "Disburse - Error - user not registered",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"pool_uuid\": \"2f391549-d3e0-4d39-9245-515c0d99c4fb\",\n    \"wallet\": \"9RSXWuo2fvGLU85SsK5YJsNuDhm9VBdKf4mZqHDMMAm6\",\n    \"amount\": 2050000000000\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url}}/pool/disburse",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"pool",
+												"disburse"
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json",
+											"description": "",
+											"type": "text"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"statusCode\": 400,\n    \"error\": {\n        \"message\": \"Wallet 9RSXWuo2fvGLU85SsK5YJsNuDhm9VBdKf4mZqHDMMAm6 is not registered. Please check again.\"\n    },\n    \"name\": \"NotRegistered\"\n}"
+								}
+							]
+						}
+					]
+				}
+			],
+			"description": "These APIs are only accessible by Jagad's admin team and watchers."
 		},
 		{
 			"name": "User",
@@ -238,6 +672,9 @@
 						},
 						{
 							"name": "Sign up OTP",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {}
+							},
 							"request": {
 								"method": "POST",
 								"header": [
@@ -572,7 +1009,7 @@
 										}
 									],
 									"cookie": [],
-									"body": "{\n    \"statusCode\": 403,\n    \"error\": {\n        \"message\": \"You are logging in from unknown IP address. Please try to login with OTP to gain access.\"\n    },\n    \"name\": \"BadRequest\"\n}"
+									"body": "{\n    \"statusCode\": 403,\n    \"error\": {\n        \"message\": \"You are logging in from unknown IP address. Please try to login with OTP to gain access.\"\n    },\n    \"name\": \"OTPRequired\"\n}"
 								}
 							]
 						},
@@ -1316,10 +1753,9 @@
 										"type": "text"
 									},
 									{
-										"key": "x-mock-response-name",
-										"value": "change password error - password mismatch",
-										"type": "text",
-										"disabled": true
+										"key": "x-mock-match-request-body",
+										"value": "true",
+										"type": "text"
 									}
 								],
 								"body": {
@@ -1348,10 +1784,16 @@
 									"name": "change password success",
 									"originalRequest": {
 										"method": "POST",
-										"header": [],
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"phone_number\": \"081318510160\",\n    \"old_password\": \"my_secret_pass\",\n    \"new_password\": \"my_new_super_pass\",\n    \"password_confirmation\": \"my_new_super_pass\"\n}",
+											"raw": "{\n    \"phone_number\": \"081318510160\",\n    \"old_password\": \"my_secret_pass\",\n    \"new_password\": \"my_pass\",\n    \"password_confirmation\": \"my_pass\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -1381,16 +1823,22 @@
 										}
 									],
 									"cookie": [],
-									"body": "{\n    \"message\": \"Password has been updated. Please login to trade\"\n}"
+									"body": "{\n    \"message\": \"Password has been updated.\"\n}"
 								},
 								{
 									"name": "change password error - password mismatch",
 									"originalRequest": {
 										"method": "POST",
-										"header": [],
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"phone_number\": \"081318510160\",\n    \"old_password\": \"my_secret_pass\",\n    \"new_password\": \"my_new_super_pass\",\n    \"password_confirmation\": \"my_new_super_pass\"\n}",
+											"raw": "{\n    \"phone_number\": \"081318510160\",\n    \"old_password\": \"my_wrong_pass\",\n    \"new_password\": \"my_pass\",\n    \"password_confirmation\": \"my_pass\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -1701,9 +2149,7 @@
 							"script": {
 								"type": "text/javascript",
 								"exec": [
-									"",
-									"const api_key = pm.environment.get(\"api_key\");",
-									"pm.request.headers.add({ key: 'x-api-key', value: api_key });"
+									""
 								]
 							}
 						},
@@ -1717,8 +2163,642 @@
 							}
 						}
 					]
+				},
+				{
+					"name": "Pools",
+					"item": [
+						{
+							"name": "List of pools",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer <access_token>",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/pools",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"pools"
+									]
+								},
+								"description": "Get list of pools for the user. There are two types of pool:\n1. Public pool\n2. Private pool\n\nUser will automatically get public pool and private pool they are invited to."
+							},
+							"response": [
+								{
+									"name": "List of pools - Success",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer <access_token>",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{url}}/pools",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"pools"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json",
+											"description": "",
+											"type": "text"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"page\": 1,\n    \"last_page\": 1,\n    \"total_hits\": 2,\n    \"result\": [\n        {\n            \"uuid\": \"2f391549-d3e0-4d39-9245-515c0d99c4fb\",\n            \"name\": \"mmi\",\n            \"display\": \"Money Market Instrument\",\n            \"description\": \"This pool fund is invested into Indonesian Money Market Instrument such as bank deposit and government bonds. This pool has minimal risk.\",\n            \"type\": 0,\n            \"risk_class\": 2,\n            \"risk_description\": \"This pool has minimal risk because bank deposits are guarantee by state insurance (LPS). For government bonds, Indonesia has BBB+ rating. All risk exposure will be tightly correlated with Indonesian Economy.\",\n            \"expected_annual_return\": 500,\n            \"invitation_only\": false,\n            \"program_id\": \"2rXhwHQYKY3WWBPKu7FfnM6R1MhhmexMpmb7ArMxw57P\",\n            \"publish_status\": \"DRAFT\"\n        },\n        {\n            \"uuid\": \"087b1171-d74a-4aa4-b121-1d5f37c0b14d\",\n            \"publish_status\": \"DRAFT\",\n            \"name\": \"kfund\",\n            \"display\": \"Kimchi Fund\",\n            \"description\": \"The fund in this pool will be used for bitcoin arbitrage in Korea. This leverage price difference between BTC in Korea and the rest of the world due to Korea's strict capital outflow policy.\",\n            \"type\": 0,\n            \"risk_class\": 8,\n            \"risk_description\": \"This pool is risky. Primary risk comes from operation stategy we employed. Fund might stuck in Korea without a way get out.\",\n            \"expected_annual_return\": 50000,\n            \"invitation_only\": true,\n            \"program_id\": \"6ZzZPUQg2Dik4bHZi8xRxcFcLjXAAh1zVUhEojVKpCK5\"\n        }\n    ]\n}"
+								}
+							]
+						},
+						{
+							"name": "Stake",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-mock-match-request-body",
+										"value": "true",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer <access_token>",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"pool_uuid\": \"2f391549-d3e0-4d39-9245-515c0d99c4fb\",\n    \"amount\": 2250000000000\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/pool/stake",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"pool",
+										"stake"
+									]
+								},
+								"description": "Stake (User's) GIDR into pool, in return, user will receive pool's coin (cToken).\n\nNote that the amount sent to server is the GIDR amount + 9 decimals. This is because GIDR token use the standard decimals from Solana.\n\nIf user want to stake 1 GIDR, request amount is 1000000000 (nine zeros).\n\n#### Parameters\n\n| Parameter | Required | Type | Value | Description |\n| --- | --- | --- | --- | --- |\n| pool_uuid | true | string | 2f391549-d3e0-4d39-9245-515c0d99c4fb | Pool UUID to stake to |\n| amount | true | number | 2250000000000 | Amount to stake, complete with 9 decimals |"
+							},
+							"response": [
+								{
+									"name": "Stake - Success",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer <access_token>",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"pool_uuid\": \"2f391549-d3e0-4d39-9245-515c0d99c4fb\",\n    \"amount\": 2250000000000\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url}}/pool/stake",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"pool",
+												"stake"
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json",
+											"description": "",
+											"type": "text"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"wallet\": \"9RSXWuo2fvGLU85SsK5YJsNuDhm9VBdKf4mZqHDMMAm5\",\n    \"pool_uuid\": \"2f391549-d3e0-4d39-9245-515c0d99c4fb\",\n    \"amount\": 2250000000000\n}"
+								},
+								{
+									"name": "Stake - Error - Insufficient fund",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer <access_token>",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"pool_uuid\": \"2f391549-d3e0-4d39-9245-515c0d99c4fb\",\n    \"amount\": 25000000000000\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url}}/pool/stake",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"pool",
+												"stake"
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json",
+											"description": "",
+											"type": "text"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"statusCode\": 400,\n    \"error\": {\n        \"message\": \"Insufficient funds.\"\n    },\n    \"name\": \"NotEnoughBalance\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Request unstake",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-mock-match-request-body",
+										"value": "true",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer <access_token>",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"pool_uuid\": \"2f391549-d3e0-4d39-9245-515c0d99c4fb\",\n    \"amount\": 400000000000\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/pool/unstake",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"pool",
+										"unstake"
+									]
+								},
+								"description": "Request to unstake GIDR from pool. This request can be:\n1. Automatically approved when pool has the liquidity. This is done through a watcher program.\n2. Manually approved by admin. This only applies to special case.\n\nNote that the amount sent to server is the GIDR amount + 9 decimals. This is because GIDR token use the standard decimals from Solana.\n\n#### Parameters\n\n| Parameter | Required | Type | Value | Description |\n| --- | --- | --- | --- | --- |\n| pool_uuid | true | string | 2f391549-d3e0-4d39-9245-515c0d99c4fb | Pool UUID to stake to |\n| amount | true | number | 2250000000000 | Amount to stake, complete with 9 decimals |"
+							},
+							"response": [
+								{
+									"name": "Request Unstake - Success",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer <access_token>",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"pool_uuid\": \"2f391549-d3e0-4d39-9245-515c0d99c4fb\",\n    \"amount\": 400000000000\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url}}/pool/unstake",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"pool",
+												"unstake"
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json",
+											"description": "",
+											"type": "text"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"queue_uuid\": \"de044268-6e84-4f09-b626-2c885e03379f\",\n    \"pool_uuid\": \"2f391549-d3e0-4d39-9245-515c0d99c4fb\",\n    \"wallet\": \"9RSXWuo2fvGLU85SsK5YJsNuDhm9VBdKf4mZqHDMMAm5\",\n    \"amount\": 400000000000\n}"
+								},
+								{
+									"name": "Request Unstake - Error - insufficient fund",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer <access_token>",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"pool_uuid\": \"2f391549-d3e0-4d39-9245-515c0d99c4fb\",\n    \"amount\": 2500000000000\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url}}/pool/unstake",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"pool",
+												"unstake"
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json",
+											"description": "",
+											"type": "text"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"statusCode\": 400,\n    \"error\": {\n        \"message\": \"Insufficient funds.\"\n    },\n    \"name\": \"NotEnoughBalance\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Get my unstake requests",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer <access_token>",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/pool/unstake/my",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"pool",
+										"unstake",
+										"my"
+									]
+								},
+								"description": "This API lists down all the unstake request queues for the user who makes the request.\n\n\n#### Status Enums\n| Value | Description |\n| --- | --- |\n| PENDING | Request has been submitted, but pending approval / rejection from the system. |\n| APPROVED | Request has been approved. Token has been exchanged. |\n| REJECTED | Request has been denied. No transaction is done. |"
+							},
+							"response": [
+								{
+									"name": "Get My Unstake Requests - Success",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/pool/unstake/my",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"pool",
+												"unstake",
+												"my"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json",
+											"description": "",
+											"type": "text"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"page\": 1,\n    \"last_page\": 1,\n    \"total_hits\": 2,\n    \"result\": [\n        {\n            \"id\": 2,\n            \"pool_id\": 2,\n            \"profile_id\": 1,\n            \"queue_uuid\": \"0267fc64-5d10-4951-b627-f1695cc56c6d\",\n            \"amount\": \"250000000000\",\n            \"decision_date\": null,\n            \"status\": \"PENDING\",\n            \"created_at\": \"2022-06-29T04:17:58.000Z\",\n            \"updated_at\": \"2022-06-29T04:17:58.000Z\"\n        },\n        {\n            \"id\": 1,\n            \"pool_id\": 1,\n            \"profile_id\": 1,\n            \"queue_uuid\": \"e7a271e2-7fab-4c98-a371-609f96aa22ef\",\n            \"amount\": \"400000000000\",\n            \"decision_date\": \"2022-06-29T07:20:41.731Z\",\n            \"status\": \"APPROVED\",\n            \"created_at\": \"2022-06-29T04:17:39.000Z\",\n            \"updated_at\": \"2022-06-29T07:20:42.000Z\"\n        }\n    ]\n}"
+								}
+							]
+						},
+						{
+							"name": "Get pool detail",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer <access_token>",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/pool/2f391549-d3e0-4d39-9245-515c0d99c4fb",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"pool",
+										"2f391549-d3e0-4d39-9245-515c0d99c4fb"
+									]
+								},
+								"description": "Get detail of a specific pool. Specify `pool_uuid` as URL endpoint.\n\nNote than all returns are in basis point (bps).\n\n_1% = 100 basis point._"
+							},
+							"response": [
+								{
+									"name": "Get pool detail - Success",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer <access_token>",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{url}}/pool/2f391549-d3e0-4d39-9245-515c0d99c4fb",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"pool",
+												"2f391549-d3e0-4d39-9245-515c0d99c4fb"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json",
+											"description": "",
+											"type": "text"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"uuid\": \"2f391549-d3e0-4d39-9245-515c0d99c4fb\",\n    \"name\": \"mmi\",\n    \"display\": \"Money Market Instrument\",\n    \"description\": \"This pool fund is invested into Indonesian Money Market Instrument such as bank deposit and government bonds. This pool has minimal risk.\",\n    \"type\": 0,\n    \"risk_class\": 2,\n    \"risk_description\": \"This pool has minimal risk because bank deposits are guarantee by state insurance (LPS). For government bonds, Indonesia has BBB+ rating. All risk exposure will be tightly correlated with Indonesian Economy.\",\n    \"expected_annual_return\": 500,\n    \"invitation_only\": false,\n    \"program_id\": \"2rXhwHQYKY3WWBPKu7FfnM6R1MhhmexMpmb7ArMxw57P\",\n    \"publish_status\": \"DRAFT\",\n    \"pool_size\": 100000,\n    \"total_liquidity\": 10000,\n    \"total_disbursement\": 90000,\n    \"total_stakers\": 95,\n    \"avg_returns\": {\n        \"1m\": 125,\n        \"3m\": 250,\n        \"6m\": 500,\n        \"12m\": 1000\n    }\n}"
+								},
+								{
+									"name": "Get pool detail - Error - incorrect uuid",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer <access_token>",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{url}}/pool/2f391549-d3e0-4d39-9245-515c0d99c4aa",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"pool",
+												"2f391549-d3e0-4d39-9245-515c0d99c4aa"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json",
+											"description": "",
+											"type": "text"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"statusCode\": 404,\n    \"error\": {\n        \"message\": \"Pool with uuid (2f391549-d3e0-4d39-9245-515c0d99c4aa) doesn't exists.\"\n    },\n    \"name\": \"NotFoundError\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Wallet",
+					"item": [
+						{
+							"name": "Transaction history",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer <access_token>",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/wallet/history",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"wallet",
+										"history"
+									]
+								},
+								"description": "User get all list of all transactions inside Garuda Wallet. These transactions include:\n\n1.  Top up\n2.  Redeem\n3.  Stake (to pool)\n4.  Unstake (from pool)\n5.  Pool revenue distribution\n6.  Pool loss socialization\n7.  Send GIDR to another wallet\n8.  Receive GIDR from another wallet\n9.  Incoming cryptocurrency (SOL, USDT, etc)\n10.  Other crypto - GIDR conversion (e.g. SOL to GIDR, USDT to GIDR). This is related to auto conversion feature (if user send supported crypto to this wallet, it will automatically converted into GIDR).\n    \n\nPaging, filtering, and sorting are available for this API.\n\n#### Transaction Codes\n\n| Code | Category | Description |\n| --- | --- | --- |\n| 101 | Top up | via cash. |\n| 111 | Top up | via bank transfer. |\n| 112 | Top up | via bank virtual account. |\n| 181 | Top up | Incoming other cryptocurrency (SOL, USDT, etc). |\n| 191 | Top up | Conversion from other cyptocurrency to GIDR. |\n| 201 | Redeem | GIDR redemption to cash. |\n| 211 | Redeem | GIDR redemption to bank account. |\n| 301 | Staking | Stake to pool. |\n| 311 | Unstaking | Unstake from pool. |\n| 401 | Revenue (distribution) | User get portion of revenue sharing from pool. |\n| 411 | Revenue (loss socialization) | User stake in a pool is slashed due to pool's loss. |\n| 501 | Transfer (in) | Receive GIDR from another wallet. |\n| 511 | Transfer (out) | Transfer out, send GIDR to another wallet. |\n\n\n#### Extras\nEvery transaction object will have `extra` property. Extra property is different between transaction codes. For example, for `111 bank transfer`, `extra` will contain:\n\n```json\n\"extra\": {\n  \"source\": \"bank transfer\",\n  \"source_account\": \"2441880809\",\n  \"source_bank\": \"BCA\",\n  \"transaction_reference\": 18975465164, \n  \"timestamp\": 1657511155\n}\n```\n\nbut for `301 staking`, `extra` will contain:\n```json\n\"extra\": {\n  \"pool_uuid\": \"2f391549-d3e0-4d39-9245-515c0d99c4fb\", \n  \"timestamp\": 1657511155\n}\n```"
+							},
+							"response": [
+								{
+									"name": "Transaction history - Success",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer <access_token>",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{url}}/wallet/history",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"wallet",
+												"history"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json",
+											"description": "",
+											"type": "text"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"page\": 1,\n    \"last_page\": 2,\n    \"total_hits\": 20,\n    \"result\": [\n        {\n            \"id\": 9511,\n            \"code\": 111,\n            \"block_tx\": \"3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v\",\n            \"network\": \"solana\",\n            \"name\": \"top up\",\n            \"timestamp\": 1657511255,\n            \"amount\": 500000000000,\n            \"ui_amount\": 500,\n            \"unit\": \"gidr\",\n            \"extra\": {\n                \"source\": \"bank transfer\",\n                \"source_account\": \"2441880809\",\n                \"source_bank\": \"BCA\",\n                \"transaction_reference\": 18975465164,\n                \"timestamp\": 1657511155\n            }\n        },\n        {\n            \"id\": 9512,\n            \"code\": 112,\n            \"solana_tx\": \"3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v\",\n            \"network\": \"solana\",\n            \"name\": \"top up\",\n            \"timestamp\": 1657511255,\n            \"amount\": 350000000000,\n            \"ui_amount\": 350,\n            \"unit\": \"gidr\",\n            \"extra\": {\n                \"source\": \"virtual account\",\n                \"source_account\": \"018777081318510160\",\n                \"source_bank\": \"BCA\",\n                \"transaction_reference\": 18975465164,\n                \"timestamp\": 1657511155\n            }\n        },\n        {\n            \"id\": 9513,\n            \"code\": 211,\n            \"solana_tx\": \"3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v\",\n            \"network\": \"solana\",\n            \"name\": \"redeem\",\n            \"timestamp\": 1657511155,\n            \"amount\": 750000000000,\n            \"ui_amount\": 750,\n            \"unit\": \"gidr\",\n            \"extra\": {\n                \"dest_account\" :\"24419892563\",\n                \"dest_bank\": \"BCA\",\n                \"transaction_reference\": 18975465164,\n                \"timestamp\":1657511155\n            }\n        },\n        {\n            \"id\": 9514,\n            \"code\": 301,\n            \"solana_tx\": \"3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v\",\n            \"network\": \"solana\",\n            \"name\": \"staking\",\n            \"timestamp\": 1657511155,\n            \"amount\": 1000000000000,\n            \"ui_amount\": 1000,\n            \"unit\": \"gidr\",\n            \"extra\": {\n                \"pool_uuid\": \"2f391549-d3e0-4d39-9245-515c0d99c4fb\",\n                \"timestamp\": 1657511155\n            }\n        },\n        {\n            \"id\": 9515,\n            \"code\": 311,\n            \"solana_tx\": \"3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v\",\n            \"network\": \"solana\",\n            \"name\": \"unstaking\",\n            \"timestamp\": 1657511155,\n            \"amount\": 250000000000,\n            \"ui_amount\": 250,\n            \"unit\": \"gidr\",\n            \"extra\": {\n                \"pool_uuid\": \"2f391549-d3e0-4d39-9245-515c0d99c4fb\",\n                \"timestamp\": 1657511155\n            }\n        },\n        {\n            \"id\": 9516,\n            \"code\": 401,\n            \"solana_tx\":\"3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v\",\n            \"network\": \"solana\",\n            \"name\": \"revenue distribution\",\n            \"timestamp\": 1657511155,\n            \"amount\": 15000000000,\n            \"ui_amount\": 15,\n            \"unit\": \"gidr\",\n            \"extra\": {\n                \"pool_uuid\": \"2f391549-d3e0-4d39-9245-515c0d99c4fb\",\n                \"return_bps\": 20\n            }\n        },\n        {\n            \"id\": 9517,\n            \"code\": 411,\n            \"solana_tx\": \"3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v\",\n            \"network\": \"solana\",\n            \"name\": \"loss socialization\",\n            \"timestamp\": 1657511155,\n            \"amount\": 10000000000,\n            \"ui_amount\": 10,\n            \"unit\": \"gidr\",\n            \"extra\": {\n                \"pool_uuid\": \"087b1171-d74a-4aa4-b121-1d5f37c0b14d\",\n                \"return_bps\": -20\n            }\n        },\n        {\n            \"id\": 9518,\n            \"code\": 501,\n            \"solana_tx\": \"3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v\",\n            \"network\": \"solana\",\n            \"name\": \"transfer in\",\n            \"timestamp\": 1657511155,\n            \"amount\": 500000000000,\n            \"ui_amount\": 500,\n            \"unit\": \"gidr\",\n            \"extra\": {\n                \"source\": \"9RSXWuo2fvGLU85SsK5YJsNuDhm9VBdKf4mZqHDMMAm5\",\n                \"destination\": \"2wY1UbwmS2ZqdiJbst74K1XJmCQGhoU2wyV6jGTuvAka\"\n            }\n        },\n        {\n            \"id\": 9519,\n            \"code\": 511,\n            \"solana_tx\": \"3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v\",\n            \"network\": \"solana\",\n            \"name\": \"transfer out\",\n            \"timestamp\": 1657511155,\n            \"amount\": 25000000000,\n            \"ui_amount\": 25,\n            \"unit\": \"gidr\",\n            \"extra\": {\n                \"source\": \"2wY1UbwmS2ZqdiJbst74K1XJmCQGhoU2wyV6jGTuvAka\",\n                \"destination\": \"9RSXWuo2fvGLU85SsK5YJsNuDhm9VBdKf4mZqHDMMAm5\"\n            }\n        }\n    ]\n}"
+								},
+								{
+									"name": "Transaction history - Success Copy",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer <access_token>",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{url}}/wallet/history/?page=2",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"wallet",
+												"history",
+												""
+											],
+											"query": [
+												{
+													"key": "page",
+													"value": "2"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json",
+											"description": "",
+											"type": "text"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"page\": 2,\n    \"last_page\": 2,\n    \"total_hits\": 20,\n    \"result\": [\n        {\n            \"id\": 9511,\n            \"code\": 111,\n            \"block_tx\": \"3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v\",\n            \"network\": \"solana\",\n            \"name\": \"top up\",\n            \"timestamp\": 1657511255,\n            \"amount\": 500000000000,\n            \"ui_amount\": 500,\n            \"unit\": \"gidr\",\n            \"extra\": {\n                \"source\": \"bank transfer\",\n                \"source_account\": \"2441880809\",\n                \"source_bank\": \"BCA\",\n                \"transaction_reference\": 18975465164,\n                \"timestamp\": 1657511155\n            }\n        },\n        {\n            \"id\": 9512,\n            \"code\": 112,\n            \"solana_tx\": \"3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v\",\n            \"network\": \"solana\",\n            \"name\": \"top up\",\n            \"timestamp\": 1657511255,\n            \"amount\": 350000000000,\n            \"ui_amount\": 350,\n            \"unit\": \"gidr\",\n            \"extra\": {\n                \"source\": \"virtual account\",\n                \"source_account\": \"018777081318510160\",\n                \"source_bank\": \"BCA\",\n                \"transaction_reference\": 18975465164,\n                \"timestamp\": 1657511155\n            }\n        },\n        {\n            \"id\": 9513,\n            \"code\": 211,\n            \"solana_tx\": \"3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v\",\n            \"network\": \"solana\",\n            \"name\": \"redeem\",\n            \"timestamp\": 1657511155,\n            \"amount\": 750000000000,\n            \"ui_amount\": 750,\n            \"unit\": \"gidr\",\n            \"extra\": {\n                \"dest_account\" :\"24419892563\",\n                \"dest_bank\": \"BCA\",\n                \"transaction_reference\": 18975465164,\n                \"timestamp\":1657511155\n            }\n        },\n        {\n            \"id\": 9514,\n            \"code\": 301,\n            \"solana_tx\": \"3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v\",\n            \"network\": \"solana\",\n            \"name\": \"staking\",\n            \"timestamp\": 1657511155,\n            \"amount\": 1000000000000,\n            \"ui_amount\": 1000,\n            \"unit\": \"gidr\",\n            \"extra\": {\n                \"pool_uuid\": \"2f391549-d3e0-4d39-9245-515c0d99c4fb\",\n                \"timestamp\": 1657511155\n            }\n        },\n        {\n            \"id\": 9515,\n            \"code\": 311,\n            \"solana_tx\": \"3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v\",\n            \"network\": \"solana\",\n            \"name\": \"unstaking\",\n            \"timestamp\": 1657511155,\n            \"amount\": 250000000000,\n            \"ui_amount\": 250,\n            \"unit\": \"gidr\",\n            \"extra\": {\n                \"pool_uuid\": \"2f391549-d3e0-4d39-9245-515c0d99c4fb\",\n                \"timestamp\": 1657511155\n            }\n        },\n        {\n            \"id\": 9516,\n            \"code\": 401,\n            \"solana_tx\":\"3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v\",\n            \"network\": \"solana\",\n            \"name\": \"revenue distribution\",\n            \"timestamp\": 1657511155,\n            \"amount\": 15000000000,\n            \"ui_amount\": 15,\n            \"unit\": \"gidr\",\n            \"extra\": {\n                \"pool_uuid\": \"2f391549-d3e0-4d39-9245-515c0d99c4fb\",\n                \"return_bps\": 20\n            }\n        },\n        {\n            \"id\": 9517,\n            \"code\": 411,\n            \"solana_tx\": \"3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v\",\n            \"network\": \"solana\",\n            \"name\": \"loss socialization\",\n            \"timestamp\": 1657511155,\n            \"amount\": 10000000000,\n            \"ui_amount\": 10,\n            \"unit\": \"gidr\",\n            \"extra\": {\n                \"pool_uuid\": \"087b1171-d74a-4aa4-b121-1d5f37c0b14d\",\n                \"return_bps\": -20\n            }\n        },\n        {\n            \"id\": 9518,\n            \"code\": 501,\n            \"solana_tx\": \"3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v\",\n            \"network\": \"solana\",\n            \"name\": \"transfer in\",\n            \"timestamp\": 1657511155,\n            \"amount\": 500000000000,\n            \"ui_amount\": 500,\n            \"unit\": \"gidr\",\n            \"extra\": {\n                \"source\": \"9RSXWuo2fvGLU85SsK5YJsNuDhm9VBdKf4mZqHDMMAm5\",\n                \"destination\": \"2wY1UbwmS2ZqdiJbst74K1XJmCQGhoU2wyV6jGTuvAka\"\n            }\n        },\n        {\n            \"id\": 9519,\n            \"code\": 511,\n            \"solana_tx\": \"3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v\",\n            \"network\": \"solana\",\n            \"name\": \"transfer out\",\n            \"timestamp\": 1657511155,\n            \"amount\": 25000000000,\n            \"ui_amount\": 25,\n            \"unit\": \"gidr\",\n            \"extra\": {\n                \"source\": \"2wY1UbwmS2ZqdiJbst74K1XJmCQGhoU2wyV6jGTuvAka\",\n                \"destination\": \"9RSXWuo2fvGLU85SsK5YJsNuDhm9VBdKf4mZqHDMMAm5\"\n            }\n        }\n    ]\n}"
+								}
+							]
+						}
+					],
+					"description": "This group of API endpoints will host all APIs relating to user wallet."
 				}
-			]
+			],
+			"description": "This APIs are accessible by all Jagad's user as part of the service."
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"const api_key = pm.environment.get(\"api_key\");",
+					"pm.request.headers.add({ key: 'x-api-key', value: api_key });"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
 		}
 	]
 }

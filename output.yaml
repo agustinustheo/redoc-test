@@ -26,17 +26,289 @@ info:
     2. Different parameter name between request body and `parameters` table.
 
     3. Inconsistencies (e.g. variable or parameter name), typo, etc.
+
+
+
+    # Notes on GET request
+
+
+    #### Sorting
+
+    User can sort by adding _get paramaters_ such as
+    `/pool/unstake/my?sort_by=date_created` for sorting by date created
+    ascending wise and `/pool/unstake/my?sort_by=-date_created` for descending.
+    Every field returned by the API can be sorted.
+
+
+    #### Filtering
+
+    User can filter their request by adding _get parameters_ such as
+    `/pool/unstake/my?status=APPROVED`.
+
+
+    #### Paging
+
+    User can request which page to return, by adding _page_ in _get parameters_,
+    such as `/pool/unstake/my?page=1`.
   version: 1.0.0
 servers:
   - url: http://{{url}}
 tags:
   - name: Admin
+    description: These APIs are only accessible by Jagad's admin team and watchers.
+  - name: Admin > Pools
   - name: User
+    description: This APIs are accessible by all Jagad's user as part of the service.
   - name: User > Authentication
     description: >-
       This endpoint collection host all endpoints related to user
       authentication.
+  - name: User > Pools
+  - name: User > Wallet
+    description: This group of API endpoints will host all APIs relating to user wallet.
 paths:
+  /pool/unstake/request:
+    post:
+      tags:
+        - Admin > Pools
+      summary: Approve unstake request
+      description: >-
+        Approve or reject unstake request. If request is approved, exchange of
+        cToken and GIDR will happen.
+
+
+        #### Parameters
+
+
+        | Parameter | Required | Type | Value | Description |
+
+        | --- | --- | --- | --- | --- |
+
+        | pool_uuid | true | string | 1837dd24-0d7a-4ddc-af9a-9384f5807915 |
+        Pool's uuid |
+
+        | queue_uuid | true | string | cff2765a-8216-499c-9387-49ddd8f361a5 |
+        Queue uuid |
+
+        | action | true | string | approve / reject | String to pick action |
+
+
+
+        #### Action
+
+        | Value | Description |
+
+        | --- | --- |
+
+        | approve | Approve the request. |
+
+        | reject | Reject the request. |
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                pool_uuid: 2f391549-d3e0-4d39-9245-515c0d99c4fb
+                queue_uuid: de044268-6e84-4f09-b626-2c885e03379f
+                action: approve
+      parameters:
+        - name: x-mock-match-request-body
+          in: header
+          schema:
+            type: boolean
+          example: 'true'
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: Bearer
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                pool_uuid: 2f391549-d3e0-4d39-9245-515c0d99c4fb
+                queue_uuid: de044268-6e84-4f09-b626-2c885e03379f
+                user_wallet: 9RSXWuo2fvGLU85SsK5YJsNuDhm9VBdKf4mZqHDMMAm5
+                amount: 400000000000
+                status: approved
+                date_created: 1656143188611
+                date_decision: 1656209689233
+        '400':
+          description: Bad Request
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                statusCode: 400
+                error:
+                  message: User does not have enough balance.
+                name: NotEnoughBalance
+        '404':
+          description: Not Found
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                statusCode: 404
+                error:
+                  message: Failed to get queue.
+                name: NotFoundError
+  /temp:
+    post:
+      tags:
+        - Admin > Pools
+      summary: Create pool
+      requestBody:
+        content: {}
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /pool/disburse:
+    post:
+      tags:
+        - Admin > Pools
+      summary: Disburse
+      description: >-
+        Disburse pool's GIDR to a wallet. Wallet holder could be:
+
+
+        1.  Asset management, in the context of MMI.
+
+        2.  Scholarship receiver, in the context of scholarship pool.
+            
+
+        This is usually used in pool without governance, thus, disbursement is
+        done  
+
+        by Jagad's admin.
+
+
+        #### Parameters
+
+
+        | Parameter | Required | Type | Value | Description |
+
+        | --- | --- | --- | --- | --- |
+
+        | pool_uuid | true | string | 10ec89be-ee28-45b6-996f-074f4cc653a4 |
+        Pool's UUID |
+
+        | wallet | true | string | 9RSXWuo2fvGLU85SsK5YJsNuDhm9VBdKf4mZqHDMMAm5
+        | Wallet address to receive fund |
+
+        | amount | true | number | 2050000000000 | Amount of GIDR to disbursed
+        with full 9 decimals |
+
+
+
+        #### Errors
+
+        _invalid wallet_
+
+        Wallet could be invalid due to several reasons:
+
+        1. Wallet has invalid address
+
+        2. Wallet is not registered
+
+        3. Wallet doesn't have the right role for the pool.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                pool_uuid: 2f391549-d3e0-4d39-9245-515c0d99c4fb
+                wallet: 8GmHzaNXivwa66AutXbDPNoQoTwniBHLFPSZ18mDWWHy
+                amount: 2050000000000
+      parameters:
+        - name: x-mock-match-request-body
+          in: header
+          schema:
+            type: boolean
+          example: 'true'
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                example-0:
+                  summary: Disburse - Success
+                  value:
+                    pool_uuid: 2f391549-d3e0-4d39-9245-515c0d99c4fb
+                    wallet: 9RSXWuo2fvGLU85SsK5YJsNuDhm9VBdKf4mZqHDMMAm5
+                    amount: 2050000000000
+                    network: solana
+                example-1:
+                  summary: Disburse - Error - pool has inssuficient fund
+                  value:
+                    statusCode: 400
+                    error:
+                      message: Insufficient funds.
+                    name: NotEnoughBalance
+        '400':
+          description: Bad Request
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                example-0:
+                  summary: Disburse - Error - incorrect role
+                  value:
+                    statusCode: 400
+                    error:
+                      message: >-
+                        Wallet 9RSXWuo2fvGLU85SsK5YJsNuDhm9VBdKf4mZqHDMMAm5 must
+                        be registered as 'investee' in mmi pool, otherwise it
+                        cannot receive fund.
+                    name: PoolIncorrectRole
+                example-1:
+                  summary: Disburse - Error - user not registered
+                  value:
+                    statusCode: 400
+                    error:
+                      message: >-
+                        Wallet 9RSXWuo2fvGLU85SsK5YJsNuDhm9VBdKf4mZqHDMMAm6 is
+                        not registered. Please check again.
+                    name: NotRegistered
   /auth/register/retail:
     post:
       tags:
@@ -359,7 +631,7 @@ paths:
                   message: >-
                     You are logging in from unknown IP address. Please try to
                     login with OTP to gain access.
-                name: BadRequest
+                name: OTPRequired
   /auth/login-with-otp:
     post:
       tags:
@@ -770,11 +1042,11 @@ paths:
           schema:
             type: string
           example: Bearer <access_token>
-        - name: x-mock-response-name
+        - name: x-mock-match-request-body
           in: header
           schema:
-            type: string
-          example: change password error - password mismatch
+            type: boolean
+          example: 'true'
       responses:
         '200':
           description: OK
@@ -788,7 +1060,7 @@ paths:
               schema:
                 type: object
               example:
-                message: Password has been updated. Please login to trade
+                message: Password has been updated.
         '400':
           description: Bad Request
           headers:
@@ -945,3 +1217,764 @@ paths:
                 error:
                   message: OTP failed to match.
                 name: Forbidden
+  /pools:
+    get:
+      tags:
+        - User > Pools
+      summary: List of pools
+      description: >-
+        Get list of pools for the user. There are two types of pool:
+
+        1. Public pool
+
+        2. Private pool
+
+
+        User will automatically get public pool and private pool they are
+        invited to.
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: Bearer <access_token>
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                page: 1
+                last_page: 1
+                total_hits: 2
+                result:
+                  - uuid: 2f391549-d3e0-4d39-9245-515c0d99c4fb
+                    name: mmi
+                    display: Money Market Instrument
+                    description: >-
+                      This pool fund is invested into Indonesian Money Market
+                      Instrument such as bank deposit and government bonds. This
+                      pool has minimal risk.
+                    type: 0
+                    risk_class: 2
+                    risk_description: >-
+                      This pool has minimal risk because bank deposits are
+                      guarantee by state insurance (LPS). For government bonds,
+                      Indonesia has BBB+ rating. All risk exposure will be
+                      tightly correlated with Indonesian Economy.
+                    expected_annual_return: 500
+                    invitation_only: false
+                    program_id: 2rXhwHQYKY3WWBPKu7FfnM6R1MhhmexMpmb7ArMxw57P
+                    publish_status: DRAFT
+                  - uuid: 087b1171-d74a-4aa4-b121-1d5f37c0b14d
+                    publish_status: DRAFT
+                    name: kfund
+                    display: Kimchi Fund
+                    description: >-
+                      The fund in this pool will be used for bitcoin arbitrage
+                      in Korea. This leverage price difference between BTC in
+                      Korea and the rest of the world due to Korea's strict
+                      capital outflow policy.
+                    type: 0
+                    risk_class: 8
+                    risk_description: >-
+                      This pool is risky. Primary risk comes from operation
+                      stategy we employed. Fund might stuck in Korea without a
+                      way get out.
+                    expected_annual_return: 50000
+                    invitation_only: true
+                    program_id: 6ZzZPUQg2Dik4bHZi8xRxcFcLjXAAh1zVUhEojVKpCK5
+  /pool/stake:
+    post:
+      tags:
+        - User > Pools
+      summary: Stake
+      description: >-
+        Stake (User's) GIDR into pool, in return, user will receive pool's coin
+        (cToken).
+
+
+        Note that the amount sent to server is the GIDR amount + 9 decimals.
+        This is because GIDR token use the standard decimals from Solana.
+
+
+        If user want to stake 1 GIDR, request amount is 1000000000 (nine zeros).
+
+
+        #### Parameters
+
+
+        | Parameter | Required | Type | Value | Description |
+
+        | --- | --- | --- | --- | --- |
+
+        | pool_uuid | true | string | 2f391549-d3e0-4d39-9245-515c0d99c4fb |
+        Pool UUID to stake to |
+
+        | amount | true | number | 2250000000000 | Amount to stake, complete
+        with 9 decimals |
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                pool_uuid: 2f391549-d3e0-4d39-9245-515c0d99c4fb
+                amount: 2250000000000
+      parameters:
+        - name: x-mock-match-request-body
+          in: header
+          schema:
+            type: boolean
+          example: 'true'
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: Bearer <access_token>
+      responses:
+        '201':
+          description: Created
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                wallet: 9RSXWuo2fvGLU85SsK5YJsNuDhm9VBdKf4mZqHDMMAm5
+                pool_uuid: 2f391549-d3e0-4d39-9245-515c0d99c4fb
+                amount: 2250000000000
+        '400':
+          description: Bad Request
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                statusCode: 400
+                error:
+                  message: Insufficient funds.
+                name: NotEnoughBalance
+  /pool/unstake:
+    post:
+      tags:
+        - User > Pools
+      summary: Request unstake
+      description: >-
+        Request to unstake GIDR from pool. This request can be:
+
+        1. Automatically approved when pool has the liquidity. This is done
+        through a watcher program.
+
+        2. Manually approved by admin. This only applies to special case.
+
+
+        Note that the amount sent to server is the GIDR amount + 9 decimals.
+        This is because GIDR token use the standard decimals from Solana.
+
+
+        #### Parameters
+
+
+        | Parameter | Required | Type | Value | Description |
+
+        | --- | --- | --- | --- | --- |
+
+        | pool_uuid | true | string | 2f391549-d3e0-4d39-9245-515c0d99c4fb |
+        Pool UUID to stake to |
+
+        | amount | true | number | 2250000000000 | Amount to stake, complete
+        with 9 decimals |
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                pool_uuid: 2f391549-d3e0-4d39-9245-515c0d99c4fb
+                amount: 400000000000
+      parameters:
+        - name: x-mock-match-request-body
+          in: header
+          schema:
+            type: boolean
+          example: 'true'
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: Bearer <access_token>
+      responses:
+        '201':
+          description: Created
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                queue_uuid: de044268-6e84-4f09-b626-2c885e03379f
+                pool_uuid: 2f391549-d3e0-4d39-9245-515c0d99c4fb
+                wallet: 9RSXWuo2fvGLU85SsK5YJsNuDhm9VBdKf4mZqHDMMAm5
+                amount: 400000000000
+        '400':
+          description: Bad Request
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                statusCode: 400
+                error:
+                  message: Insufficient funds.
+                name: NotEnoughBalance
+  /pool/unstake/my:
+    get:
+      tags:
+        - User > Pools
+      summary: Get my unstake requests
+      description: >-
+        This API lists down all the unstake request queues for the user who
+        makes the request.
+
+
+
+        #### Status Enums
+
+        | Value | Description |
+
+        | --- | --- |
+
+        | PENDING | Request has been submitted, but pending approval / rejection
+        from the system. |
+
+        | APPROVED | Request has been approved. Token has been exchanged. |
+
+        | REJECTED | Request has been denied. No transaction is done. |
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: Bearer <access_token>
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                page: 1
+                last_page: 1
+                total_hits: 2
+                result:
+                  - id: 2
+                    pool_id: 2
+                    profile_id: 1
+                    queue_uuid: 0267fc64-5d10-4951-b627-f1695cc56c6d
+                    amount: '250000000000'
+                    decision_date: null
+                    status: PENDING
+                    created_at: '2022-06-29T04:17:58.000Z'
+                    updated_at: '2022-06-29T04:17:58.000Z'
+                  - id: 1
+                    pool_id: 1
+                    profile_id: 1
+                    queue_uuid: e7a271e2-7fab-4c98-a371-609f96aa22ef
+                    amount: '400000000000'
+                    decision_date: '2022-06-29T07:20:41.731Z'
+                    status: APPROVED
+                    created_at: '2022-06-29T04:17:39.000Z'
+                    updated_at: '2022-06-29T07:20:42.000Z'
+  /pool/2f391549-d3e0-4d39-9245-515c0d99c4fb:
+    get:
+      tags:
+        - User > Pools
+      summary: Get pool detail
+      description: |-
+        Get detail of a specific pool. Specify `pool_uuid` as URL endpoint.
+
+        Note than all returns are in basis point (bps).
+
+        _1% = 100 basis point._
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: Bearer <access_token>
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                uuid: 2f391549-d3e0-4d39-9245-515c0d99c4fb
+                name: mmi
+                display: Money Market Instrument
+                description: >-
+                  This pool fund is invested into Indonesian Money Market
+                  Instrument such as bank deposit and government bonds. This
+                  pool has minimal risk.
+                type: 0
+                risk_class: 2
+                risk_description: >-
+                  This pool has minimal risk because bank deposits are guarantee
+                  by state insurance (LPS). For government bonds, Indonesia has
+                  BBB+ rating. All risk exposure will be tightly correlated with
+                  Indonesian Economy.
+                expected_annual_return: 500
+                invitation_only: false
+                program_id: 2rXhwHQYKY3WWBPKu7FfnM6R1MhhmexMpmb7ArMxw57P
+                publish_status: DRAFT
+                pool_size: 100000
+                total_liquidity: 10000
+                total_disbursement: 90000
+                total_stakers: 95
+                avg_returns:
+                  1m: 125
+                  3m: 250
+                  6m: 500
+                  12m: 1000
+        '404':
+          description: Not Found
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                statusCode: 404
+                error:
+                  message: >-
+                    Pool with uuid (2f391549-d3e0-4d39-9245-515c0d99c4aa)
+                    doesn't exists.
+                name: NotFoundError
+  /wallet/history:
+    get:
+      tags:
+        - User > Wallet
+      summary: Transaction history
+      description: >-
+        User get all list of all transactions inside Garuda Wallet. These
+        transactions include:
+
+
+        1.  Top up
+
+        2.  Redeem
+
+        3.  Stake (to pool)
+
+        4.  Unstake (from pool)
+
+        5.  Pool revenue distribution
+
+        6.  Pool loss socialization
+
+        7.  Send GIDR to another wallet
+
+        8.  Receive GIDR from another wallet
+
+        9.  Incoming cryptocurrency (SOL, USDT, etc)
+
+        10.  Other crypto - GIDR conversion (e.g. SOL to GIDR, USDT to GIDR).
+        This is related to auto conversion feature (if user send supported
+        crypto to this wallet, it will automatically converted into GIDR).
+            
+
+        Paging, filtering, and sorting are available for this API.
+
+
+        #### Transaction Codes
+
+
+        | Code | Category | Description |
+
+        | --- | --- | --- |
+
+        | 101 | Top up | via cash. |
+
+        | 111 | Top up | via bank transfer. |
+
+        | 112 | Top up | via bank virtual account. |
+
+        | 181 | Top up | Incoming other cryptocurrency (SOL, USDT, etc). |
+
+        | 191 | Top up | Conversion from other cyptocurrency to GIDR. |
+
+        | 201 | Redeem | GIDR redemption to cash. |
+
+        | 211 | Redeem | GIDR redemption to bank account. |
+
+        | 301 | Staking | Stake to pool. |
+
+        | 311 | Unstaking | Unstake from pool. |
+
+        | 401 | Revenue (distribution) | User get portion of revenue sharing
+        from pool. |
+
+        | 411 | Revenue (loss socialization) | User stake in a pool is slashed
+        due to pool's loss. |
+
+        | 501 | Transfer (in) | Receive GIDR from another wallet. |
+
+        | 511 | Transfer (out) | Transfer out, send GIDR to another wallet. |
+
+
+
+        #### Extras
+
+        Every transaction object will have `extra` property. Extra property is
+        different between transaction codes. For example, for `111 bank
+        transfer`, `extra` will contain:
+
+
+        ```json
+
+        "extra": {
+          "source": "bank transfer",
+          "source_account": "2441880809",
+          "source_bank": "BCA",
+          "transaction_reference": 18975465164, 
+          "timestamp": 1657511155
+        }
+
+        ```
+
+
+        but for `301 staking`, `extra` will contain:
+
+        ```json
+
+        "extra": {
+          "pool_uuid": "2f391549-d3e0-4d39-9245-515c0d99c4fb", 
+          "timestamp": 1657511155
+        }
+
+        ```
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: Bearer <access_token>
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                example-0:
+                  summary: Transaction history - Success
+                  value:
+                    page: 1
+                    last_page: 2
+                    total_hits: 20
+                    result:
+                      - id: 9511
+                        code: 111
+                        block_tx: >-
+                          3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v
+                        network: solana
+                        name: top up
+                        timestamp: 1657511255
+                        amount: 500000000000
+                        ui_amount: 500
+                        unit: gidr
+                        extra:
+                          source: bank transfer
+                          source_account: '2441880809'
+                          source_bank: BCA
+                          transaction_reference: 18975465164
+                          timestamp: 1657511155
+                      - id: 9512
+                        code: 112
+                        solana_tx: >-
+                          3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v
+                        network: solana
+                        name: top up
+                        timestamp: 1657511255
+                        amount: 350000000000
+                        ui_amount: 350
+                        unit: gidr
+                        extra:
+                          source: virtual account
+                          source_account: '018777081318510160'
+                          source_bank: BCA
+                          transaction_reference: 18975465164
+                          timestamp: 1657511155
+                      - id: 9513
+                        code: 211
+                        solana_tx: >-
+                          3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v
+                        network: solana
+                        name: redeem
+                        timestamp: 1657511155
+                        amount: 750000000000
+                        ui_amount: 750
+                        unit: gidr
+                        extra:
+                          dest_account: '24419892563'
+                          dest_bank: BCA
+                          transaction_reference: 18975465164
+                          timestamp: 1657511155
+                      - id: 9514
+                        code: 301
+                        solana_tx: >-
+                          3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v
+                        network: solana
+                        name: staking
+                        timestamp: 1657511155
+                        amount: 1000000000000
+                        ui_amount: 1000
+                        unit: gidr
+                        extra:
+                          pool_uuid: 2f391549-d3e0-4d39-9245-515c0d99c4fb
+                          timestamp: 1657511155
+                      - id: 9515
+                        code: 311
+                        solana_tx: >-
+                          3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v
+                        network: solana
+                        name: unstaking
+                        timestamp: 1657511155
+                        amount: 250000000000
+                        ui_amount: 250
+                        unit: gidr
+                        extra:
+                          pool_uuid: 2f391549-d3e0-4d39-9245-515c0d99c4fb
+                          timestamp: 1657511155
+                      - id: 9516
+                        code: 401
+                        solana_tx: >-
+                          3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v
+                        network: solana
+                        name: revenue distribution
+                        timestamp: 1657511155
+                        amount: 15000000000
+                        ui_amount: 15
+                        unit: gidr
+                        extra:
+                          pool_uuid: 2f391549-d3e0-4d39-9245-515c0d99c4fb
+                          return_bps: 20
+                      - id: 9517
+                        code: 411
+                        solana_tx: >-
+                          3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v
+                        network: solana
+                        name: loss socialization
+                        timestamp: 1657511155
+                        amount: 10000000000
+                        ui_amount: 10
+                        unit: gidr
+                        extra:
+                          pool_uuid: 087b1171-d74a-4aa4-b121-1d5f37c0b14d
+                          return_bps: -20
+                      - id: 9518
+                        code: 501
+                        solana_tx: >-
+                          3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v
+                        network: solana
+                        name: transfer in
+                        timestamp: 1657511155
+                        amount: 500000000000
+                        ui_amount: 500
+                        unit: gidr
+                        extra:
+                          source: 9RSXWuo2fvGLU85SsK5YJsNuDhm9VBdKf4mZqHDMMAm5
+                          destination: 2wY1UbwmS2ZqdiJbst74K1XJmCQGhoU2wyV6jGTuvAka
+                      - id: 9519
+                        code: 511
+                        solana_tx: >-
+                          3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v
+                        network: solana
+                        name: transfer out
+                        timestamp: 1657511155
+                        amount: 25000000000
+                        ui_amount: 25
+                        unit: gidr
+                        extra:
+                          source: 2wY1UbwmS2ZqdiJbst74K1XJmCQGhoU2wyV6jGTuvAka
+                          destination: 9RSXWuo2fvGLU85SsK5YJsNuDhm9VBdKf4mZqHDMMAm5
+                example-1:
+                  summary: Transaction history - Success Copy
+                  value:
+                    page: 2
+                    last_page: 2
+                    total_hits: 20
+                    result:
+                      - id: 9511
+                        code: 111
+                        block_tx: >-
+                          3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v
+                        network: solana
+                        name: top up
+                        timestamp: 1657511255
+                        amount: 500000000000
+                        ui_amount: 500
+                        unit: gidr
+                        extra:
+                          source: bank transfer
+                          source_account: '2441880809'
+                          source_bank: BCA
+                          transaction_reference: 18975465164
+                          timestamp: 1657511155
+                      - id: 9512
+                        code: 112
+                        solana_tx: >-
+                          3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v
+                        network: solana
+                        name: top up
+                        timestamp: 1657511255
+                        amount: 350000000000
+                        ui_amount: 350
+                        unit: gidr
+                        extra:
+                          source: virtual account
+                          source_account: '018777081318510160'
+                          source_bank: BCA
+                          transaction_reference: 18975465164
+                          timestamp: 1657511155
+                      - id: 9513
+                        code: 211
+                        solana_tx: >-
+                          3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v
+                        network: solana
+                        name: redeem
+                        timestamp: 1657511155
+                        amount: 750000000000
+                        ui_amount: 750
+                        unit: gidr
+                        extra:
+                          dest_account: '24419892563'
+                          dest_bank: BCA
+                          transaction_reference: 18975465164
+                          timestamp: 1657511155
+                      - id: 9514
+                        code: 301
+                        solana_tx: >-
+                          3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v
+                        network: solana
+                        name: staking
+                        timestamp: 1657511155
+                        amount: 1000000000000
+                        ui_amount: 1000
+                        unit: gidr
+                        extra:
+                          pool_uuid: 2f391549-d3e0-4d39-9245-515c0d99c4fb
+                          timestamp: 1657511155
+                      - id: 9515
+                        code: 311
+                        solana_tx: >-
+                          3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v
+                        network: solana
+                        name: unstaking
+                        timestamp: 1657511155
+                        amount: 250000000000
+                        ui_amount: 250
+                        unit: gidr
+                        extra:
+                          pool_uuid: 2f391549-d3e0-4d39-9245-515c0d99c4fb
+                          timestamp: 1657511155
+                      - id: 9516
+                        code: 401
+                        solana_tx: >-
+                          3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v
+                        network: solana
+                        name: revenue distribution
+                        timestamp: 1657511155
+                        amount: 15000000000
+                        ui_amount: 15
+                        unit: gidr
+                        extra:
+                          pool_uuid: 2f391549-d3e0-4d39-9245-515c0d99c4fb
+                          return_bps: 20
+                      - id: 9517
+                        code: 411
+                        solana_tx: >-
+                          3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v
+                        network: solana
+                        name: loss socialization
+                        timestamp: 1657511155
+                        amount: 10000000000
+                        ui_amount: 10
+                        unit: gidr
+                        extra:
+                          pool_uuid: 087b1171-d74a-4aa4-b121-1d5f37c0b14d
+                          return_bps: -20
+                      - id: 9518
+                        code: 501
+                        solana_tx: >-
+                          3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v
+                        network: solana
+                        name: transfer in
+                        timestamp: 1657511155
+                        amount: 500000000000
+                        ui_amount: 500
+                        unit: gidr
+                        extra:
+                          source: 9RSXWuo2fvGLU85SsK5YJsNuDhm9VBdKf4mZqHDMMAm5
+                          destination: 2wY1UbwmS2ZqdiJbst74K1XJmCQGhoU2wyV6jGTuvAka
+                      - id: 9519
+                        code: 511
+                        solana_tx: >-
+                          3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v
+                        network: solana
+                        name: transfer out
+                        timestamp: 1657511155
+                        amount: 25000000000
+                        ui_amount: 25
+                        unit: gidr
+                        extra:
+                          source: 2wY1UbwmS2ZqdiJbst74K1XJmCQGhoU2wyV6jGTuvAka
+                          destination: 9RSXWuo2fvGLU85SsK5YJsNuDhm9VBdKf4mZqHDMMAm5
