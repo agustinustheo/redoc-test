@@ -8,444 +8,6 @@
 	},
 	"item": [
 		{
-			"name": "Admin",
-			"item": [
-				{
-					"name": "Pools",
-					"item": [
-						{
-							"name": "Approve unstake request",
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "x-mock-match-request-body",
-										"value": "true",
-										"type": "text"
-									},
-									{
-										"key": "Authorization",
-										"value": "Bearer",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"pool_uuid\": \"2f391549-d3e0-4d39-9245-515c0d99c4fb\",\n    \"queue_uuid\": \"de044268-6e84-4f09-b626-2c885e03379f\",\n    \"action\": \"approve\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{url}}/pool/unstake/request",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"pool",
-										"unstake",
-										"request"
-									]
-								},
-								"description": "Approve or reject unstake request. If request is approved, exchange of cToken and GIDR will happen.\n\n#### Parameters\n\n| Parameter | Required | Type | Value | Description |\n| --- | --- | --- | --- | --- |\n| pool_uuid | true | string | 1837dd24-0d7a-4ddc-af9a-9384f5807915 | Pool's uuid |\n| queue_uuid | true | string | cff2765a-8216-499c-9387-49ddd8f361a5 | Queue uuid |\n| action | true | string | approve / reject | String to pick action |\n\n\n#### Action\n| Value | Description |\n| --- | --- |\n| approve | Approve the request. |\n| reject | Reject the request. |"
-							},
-							"response": [
-								{
-									"name": "Approve unstake request - Success",
-									"originalRequest": {
-										"method": "POST",
-										"header": [
-											{
-												"key": "Authorization",
-												"value": "Bearer <access_token>",
-												"type": "text"
-											},
-											{
-												"key": "Content-Type",
-												"value": "application/json",
-												"type": "text"
-											}
-										],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n    \"pool_uuid\": \"2f391549-d3e0-4d39-9245-515c0d99c4fb\",\n    \"queue_uuid\": \"de044268-6e84-4f09-b626-2c885e03379f\",\n    \"action\": \"approve\"\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{url}}/pool/unstake/request",
-											"host": [
-												"{{url}}"
-											],
-											"path": [
-												"pool",
-												"unstake",
-												"request"
-											]
-										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "Content-Type",
-											"value": "application/json",
-											"description": "",
-											"type": "text"
-										}
-									],
-									"cookie": [],
-									"body": "{\n    \"pool_uuid\": \"2f391549-d3e0-4d39-9245-515c0d99c4fb\",\n    \"queue_uuid\": \"de044268-6e84-4f09-b626-2c885e03379f\",\n    \"user_wallet\": \"9RSXWuo2fvGLU85SsK5YJsNuDhm9VBdKf4mZqHDMMAm5\",\n    \"amount\": 400000000000,\n    \"status\": \"approved\",\n    \"date_created\": 1656143188611,\n    \"date_decision\": 1656209689233\n}"
-								},
-								{
-									"name": "Approve unstake request - Error - wrong queue id",
-									"originalRequest": {
-										"method": "POST",
-										"header": [
-											{
-												"key": "Authorization",
-												"value": "Bearer <access_token>",
-												"type": "text"
-											},
-											{
-												"key": "Content-Type",
-												"value": "application/json",
-												"type": "text"
-											}
-										],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n    \"pool_uuid\": \"2f391549-d3e0-4d39-9245-515c0d99c4fb\",\n    \"queue_uuid\": \"de044268-6e84-4f09-b626-2c885e03379d\",\n    \"action\": \"approve\"\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{url}}/pool/unstake/request",
-											"host": [
-												"{{url}}"
-											],
-											"path": [
-												"pool",
-												"unstake",
-												"request"
-											]
-										}
-									},
-									"status": "Not Found",
-									"code": 404,
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "Content-Type",
-											"value": "application/json",
-											"description": "",
-											"type": "text"
-										}
-									],
-									"cookie": [],
-									"body": "{\n    \"statusCode\": 404,\n    \"error\": {\n        \"message\": \"Failed to get queue.\"\n    },\n    \"name\": \"NotFoundError\"\n}"
-								},
-								{
-									"name": "Approve unstake request - Error - insufficient fund",
-									"originalRequest": {
-										"method": "POST",
-										"header": [
-											{
-												"key": "Authorization",
-												"value": "Bearer",
-												"type": "text"
-											},
-											{
-												"key": "Content-Type",
-												"value": "application/json",
-												"type": "text"
-											}
-										],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n    \"pool_uuid\": \"2f391549-d3e0-4d39-9245-515c0d99c4fb\",\n    \"queue_uuid\": \"de044268-6e84-4f09-b626-2c885e03379e\",\n    \"action\": \"approve\"\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{url}}/pool/unstake/request",
-											"host": [
-												"{{url}}"
-											],
-											"path": [
-												"pool",
-												"unstake",
-												"request"
-											]
-										}
-									},
-									"status": "Bad Request",
-									"code": 400,
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "Content-Type",
-											"value": "application/json",
-											"description": "",
-											"type": "text"
-										}
-									],
-									"cookie": [],
-									"body": "{\n    \"statusCode\": 400,\n    \"error\": {\n        \"message\": \"User does not have enough balance.\"\n    },\n    \"name\": \"NotEnoughBalance\"\n}"
-								}
-							]
-						},
-						{
-							"name": "Create pool",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"url": {
-									"raw": "{{url}}/temp",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"temp"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Disburse",
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "x-mock-match-request-body",
-										"value": "true",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"pool_uuid\": \"2f391549-d3e0-4d39-9245-515c0d99c4fb\",\n    \"wallet\": \"8GmHzaNXivwa66AutXbDPNoQoTwniBHLFPSZ18mDWWHy\",\n    \"amount\": 2050000000000\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{url}}/pool/disburse",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"pool",
-										"disburse"
-									]
-								},
-								"description": "Disburse pool's GIDR to a wallet. Wallet holder could be:\n\n1.  Asset management, in the context of MMI.\n2.  Scholarship receiver, in the context of scholarship pool.\n    \n\nThis is usually used in pool without governance, thus, disbursement is done  \nby Jagad's admin.\n\n#### Parameters\n\n| Parameter | Required | Type | Value | Description |\n| --- | --- | --- | --- | --- |\n| pool_uuid | true | string | 10ec89be-ee28-45b6-996f-074f4cc653a4 | Pool's UUID |\n| wallet | true | string | 9RSXWuo2fvGLU85SsK5YJsNuDhm9VBdKf4mZqHDMMAm5 | Wallet address to receive fund |\n| amount | true | number | 2050000000000 | Amount of GIDR to disbursed with full 9 decimals |\n\n\n#### Errors\n_invalid wallet_\nWallet could be invalid due to several reasons:\n1. Wallet has invalid address\n2. Wallet is not registered\n3. Wallet doesn't have the right role for the pool."
-							},
-							"response": [
-								{
-									"name": "Disburse - Success",
-									"originalRequest": {
-										"method": "POST",
-										"header": [
-											{
-												"key": "Content-Type",
-												"name": "Content-Type",
-												"value": "application/json",
-												"type": "text"
-											}
-										],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n    \"pool_uuid\": \"2f391549-d3e0-4d39-9245-515c0d99c4fb\",\n    \"wallet\": \"8GmHzaNXivwa66AutXbDPNoQoTwniBHLFPSZ18mDWWHy\",\n    \"amount\": 2050000000000\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{url}}/pool/disburse",
-											"host": [
-												"{{url}}"
-											],
-											"path": [
-												"pool",
-												"disburse"
-											]
-										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "Content-Type",
-											"value": "application/json",
-											"description": "",
-											"type": "text"
-										}
-									],
-									"cookie": [],
-									"body": "{\n    \"pool_uuid\": \"2f391549-d3e0-4d39-9245-515c0d99c4fb\",\n    \"wallet\": \"9RSXWuo2fvGLU85SsK5YJsNuDhm9VBdKf4mZqHDMMAm5\",\n    \"amount\": 2050000000000,\n    \"network\": \"solana\"\n}"
-								},
-								{
-									"name": "Disburse - Error - pool has inssuficient fund",
-									"originalRequest": {
-										"method": "POST",
-										"header": [
-											{
-												"key": "Content-Type",
-												"value": "application/json",
-												"type": "text"
-											}
-										],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n    \"pool_uuid\": \"2f391549-d3e0-4d39-9245-515c0d99c4fb\",\n    \"wallet\": \"8GmHzaNXivwa66AutXbDPNoQoTwniBHLFPSZ18mDWWHy\",\n    \"amount\": 225000000000000\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{url}}/pool/disburse",
-											"host": [
-												"{{url}}"
-											],
-											"path": [
-												"pool",
-												"disburse"
-											]
-										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "Content-Type",
-											"value": "application/json",
-											"description": "",
-											"type": "text"
-										}
-									],
-									"cookie": [],
-									"body": "{\n    \"statusCode\": 400,\n    \"error\": {\n        \"message\": \"Insufficient funds.\"\n    },\n    \"name\": \"NotEnoughBalance\"\n}"
-								},
-								{
-									"name": "Disburse - Error - incorrect role",
-									"originalRequest": {
-										"method": "POST",
-										"header": [
-											{
-												"key": "Content-Type",
-												"value": "application/json",
-												"type": "text"
-											}
-										],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n    \"pool_uuid\": \"2f391549-d3e0-4d39-9245-515c0d99c4fb\",\n    \"wallet\": \"9RSXWuo2fvGLU85SsK5YJsNuDhm9VBdKf4mZqHDMMAm5\",\n    \"amount\": 2050000000000\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{url}}/pool/disburse",
-											"host": [
-												"{{url}}"
-											],
-											"path": [
-												"pool",
-												"disburse"
-											]
-										}
-									},
-									"status": "Bad Request",
-									"code": 400,
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "Content-Type",
-											"value": "application/json",
-											"description": "",
-											"type": "text"
-										}
-									],
-									"cookie": [],
-									"body": "{\n    \"statusCode\": 400,\n    \"error\": {\n        \"message\": \"Wallet 9RSXWuo2fvGLU85SsK5YJsNuDhm9VBdKf4mZqHDMMAm5 must be registered as 'investee' in mmi pool, otherwise it cannot receive fund.\"\n    },\n    \"name\": \"PoolIncorrectRole\"\n}"
-								},
-								{
-									"name": "Disburse - Error - user not registered",
-									"originalRequest": {
-										"method": "POST",
-										"header": [
-											{
-												"key": "Content-Type",
-												"value": "application/json",
-												"type": "text"
-											}
-										],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n    \"pool_uuid\": \"2f391549-d3e0-4d39-9245-515c0d99c4fb\",\n    \"wallet\": \"9RSXWuo2fvGLU85SsK5YJsNuDhm9VBdKf4mZqHDMMAm6\",\n    \"amount\": 2050000000000\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{url}}/pool/disburse",
-											"host": [
-												"{{url}}"
-											],
-											"path": [
-												"pool",
-												"disburse"
-											]
-										}
-									},
-									"status": "Bad Request",
-									"code": 400,
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "Content-Type",
-											"value": "application/json",
-											"description": "",
-											"type": "text"
-										}
-									],
-									"cookie": [],
-									"body": "{\n    \"statusCode\": 400,\n    \"error\": {\n        \"message\": \"Wallet 9RSXWuo2fvGLU85SsK5YJsNuDhm9VBdKf4mZqHDMMAm6 is not registered. Please check again.\"\n    },\n    \"name\": \"NotRegistered\"\n}"
-								}
-							]
-						}
-					]
-				}
-			],
-			"description": "These APIs are only accessible by Jagad's admin team and watchers."
-		},
-		{
 			"name": "User",
 			"item": [
 				{
@@ -2228,6 +1790,126 @@
 							]
 						},
 						{
+							"name": "Get staking status",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer <access_token>",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/pool/2f391549-d3e0-4d39-9245-515c0d99c4fb/staking",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"pool",
+										"2f391549-d3e0-4d39-9245-515c0d99c4fb",
+										"staking"
+									]
+								},
+								"description": "Get staking status of requesting user in specific pool. Pool is defined as part of the URL endpoint.\n\nThis endpoint only returns the current amount of cToken user has in associated pool. It doesn't tell user principal amount, yield generated, or anything like that because the calculation is too complex  for it to be effectively displayed as summary.\n\nHistorical return as a result of staking will be provided via separate API, which will return a list of returns by date (distribution date, weighted avg. amount, yield amount, yield percentage)."
+							},
+							"response": [
+								{
+									"name": "Get staking status - Success",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/pool/2f391549-d3e0-4d39-9245-515c0d99c4fb/staking",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"pool",
+												"2f391549-d3e0-4d39-9245-515c0d99c4fb",
+												"staking"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json",
+											"description": "",
+											"type": "text"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"amount\": 103000000000000,\n    \"ui_amount\": 103000\n}"
+								},
+								{
+									"name": "Get staking status - Success - Empty",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/pool/087b1171-d74a-4aa4-b121-1d5f37c0b14d/staking",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"pool",
+												"087b1171-d74a-4aa4-b121-1d5f37c0b14d",
+												"staking"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": null,
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json",
+											"description": "",
+											"type": "text"
+										}
+									],
+									"cookie": [],
+									"body": "{}"
+								},
+								{
+									"name": "Get staking status - Error - pool not found",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/pool/621e5954-2ad6-46c1-ab47-7c8e1e8d0f50/staking",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"pool",
+												"621e5954-2ad6-46c1-ab47-7c8e1e8d0f50",
+												"staking"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json",
+											"description": "",
+											"type": "text"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"statusCode\": 404,\n    \"error\": {\n        \"message\": \"Pool with uuid (621e5954-2ad6-46c1-ab47-7c8e1e8d0f50) doesn't exists.\"\n    },\n    \"name\": \"NotFoundError\"\n}"
+								}
+							]
+						},
+						{
 							"name": "Stake",
 							"request": {
 								"method": "POST",
@@ -2291,13 +1973,9 @@
 											}
 										},
 										"url": {
-											"raw": "https://08207307-bdbb-451a-be2c-156a6730a3da.mock.pstmn.io/pool/stake",
-											"protocol": "https",
+											"raw": "{{url}}/pool/stake",
 											"host": [
-												"08207307-bdbb-451a-be2c-156a6730a3da",
-												"mock",
-												"pstmn",
-												"io"
+												"{{url}}"
 											],
 											"path": [
 												"pool",
@@ -2435,13 +2113,9 @@
 											}
 										},
 										"url": {
-											"raw": "https://08207307-bdbb-451a-be2c-156a6730a3da.mock.pstmn.io/pool/unstake",
-											"protocol": "https",
+											"raw": "{{url}}/pool/unstake",
 											"host": [
-												"08207307-bdbb-451a-be2c-156a6730a3da",
-												"mock",
-												"pstmn",
-												"io"
+												"{{url}}"
 											],
 											"path": [
 												"pool",
@@ -2511,7 +2185,7 @@
 										}
 									],
 									"cookie": [],
-									"body": "{\n    \"statusCode\": 400,\n    \"error\": {\n        \"message\": \"Insufficient funds.\"\n    },\n    \"name\": \"NotEnoughBalance\"\n}"
+									"body": "{\n    \"statusCode\": 400,\n    \"error\": {\n        \"message\": \"Insufficient fund.\"\n    },\n    \"name\": \"NotEnoughBalance\"\n}"
 								}
 							]
 						},
@@ -2546,13 +2220,9 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "https://08207307-bdbb-451a-be2c-156a6730a3da.mock.pstmn.io/pool/unstake/my",
-											"protocol": "https",
+											"raw": "{{url}}/pool/unstake/my",
 											"host": [
-												"08207307-bdbb-451a-be2c-156a6730a3da",
-												"mock",
-												"pstmn",
-												"io"
+												"{{url}}"
 											],
 											"path": [
 												"pool",
@@ -2613,13 +2283,9 @@
 											}
 										],
 										"url": {
-											"raw": "https://08207307-bdbb-451a-be2c-156a6730a3da.mock.pstmn.io/pool/2f391549-d3e0-4d39-9245-515c0d99c4fb",
-											"protocol": "https",
+											"raw": "{{url}}/pool/2f391549-d3e0-4d39-9245-515c0d99c4fb",
 											"host": [
-												"08207307-bdbb-451a-be2c-156a6730a3da",
-												"mock",
-												"pstmn",
-												"io"
+												"{{url}}"
 											],
 											"path": [
 												"pool",
@@ -2685,6 +2351,67 @@
 					"name": "Wallet",
 					"item": [
 						{
+							"name": "Get balance",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer <access_token>",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/wallet/balance",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"wallet",
+										"balance"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Get balance - Success",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer <access_token>",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{url}}/wallet/balance",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"wallet",
+												"balance"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json",
+											"description": "",
+											"type": "text"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"amount\": 15000000000000,\n    \"ui_amount\": 15000\n}"
+								}
+							]
+						},
+						{
 							"name": "Transaction history",
 							"request": {
 								"method": "GET",
@@ -2705,7 +2432,7 @@
 										"history"
 									]
 								},
-								"description": "User get all list of all transactions inside Garuda Wallet. These transactions include:\n\n1.  Top up\n2.  Redeem\n3.  Stake (to pool)\n4.  Unstake (from pool)\n5.  Pool revenue distribution\n6.  Pool loss socialization\n7.  Send GIDR to another wallet\n8.  Receive GIDR from another wallet\n9.  Incoming cryptocurrency (SOL, USDT, etc)\n10.  Other crypto - GIDR conversion (e.g. SOL to GIDR, USDT to GIDR). This is related to auto conversion feature (if user send supported crypto to this wallet, it will automatically converted into GIDR).\n    \n\nPaging, filtering, and sorting are available for this API.\n\n#### Transaction Codes\n\n| Code | Category | Description |\n| --- | --- | --- |\n| 101 | Top up | via cash. |\n| 111 | Top up | via bank transfer. |\n| 112 | Top up | via bank virtual account. |\n| 181 | Top up | Incoming other cryptocurrency (SOL, USDT, etc). |\n| 191 | Top up | Conversion from other cyptocurrency to GIDR. |\n| 201 | Redeem | GIDR redemption to cash. |\n| 211 | Redeem | GIDR redemption to bank account. |\n| 301 | Staking | Stake to pool. |\n| 311 | Unstaking | Unstake from pool. |\n| 401 | Revenue (distribution) | User get portion of revenue sharing from pool. |\n| 411 | Revenue (loss socialization) | User stake in a pool is slashed due to pool's loss. |\n| 501 | Transfer (in) | Receive GIDR from another wallet. |\n| 511 | Transfer (out) | Transfer out, send GIDR to another wallet. |\n\n\n#### Extras\nEvery transaction object will have `extra` property. Extra property is different between transaction codes. For example, for `111 bank transfer`, `extra` will contain:\n\n```json\n\"extra\": {\n  \"source\": \"bank transfer\",\n  \"source_account\": \"2441880809\",\n  \"source_bank\": \"BCA\",\n  \"transaction_reference\": 18975465164, \n  \"timestamp\": 1657511155\n}\n```\n\nbut for `301 staking`, `extra` will contain:\n```json\n\"extra\": {\n  \"pool_uuid\": \"2f391549-d3e0-4d39-9245-515c0d99c4fb\", \n  \"timestamp\": 1657511155\n}\n```"
+								"description": "User get all list of all transactions inside Garuda Wallet. These transactions include:\n\n1.  Top up\n2.  Redeem\n3.  Stake (to pool)\n4.  Unstake (from pool)\n5.  Pool revenue distribution\n6.  Pool loss socialization\n7.  Send GIDR to another wallet\n8.  Receive GIDR from another wallet\n9.  Incoming cryptocurrency (SOL, USDT, etc)\n10.  Other crypto - GIDR conversion (e.g. SOL to GIDR, USDT to GIDR). This is related to auto conversion feature (if user send supported crypto to this wallet, it will automatically converted into GIDR).\n    \n\nPaging, filtering, and sorting are available for this API.\n\n#### Transaction Codes\n\n| Code | Category | Description |\n| --- | --- | --- |\n| 101 | Top up | via cash. |\n| 111 | Top up | via bank transfer. |\n| 112 | Top up | via bank virtual account. |\n| 181 | Top up | Incoming other cryptocurrency (SOL, USDT, etc). |\n| 191 | Top up | Conversion from other cyptocurrency to GIDR. |\n| 201 | Redeem | GIDR redemption to cash. |\n| 211 | Redeem | GIDR redemption to bank account. |\n| 301 | Staking | Stake to pool. |\n| 311 | Unstaking | Unstake from pool. |\n| 401 | Revenue (distribution) | User get portion of revenue sharing from pool. |\n| 411 | Revenue (loss socialization) | User stake in a pool is slashed due to pool's loss. |\n| 501 | Transfer (in) | Receive GIDR from another wallet. |\n| 511 | Transfer (out) | Transfer out, send GIDR to another wallet. |\n\n\n#### Extras\nEvery transaction object will have `extra` property. Extra property is different between transaction codes. For example, for `111 bank transfer`, `extra` will contain:\n\n```json\n\"extra\": {\n  \"source\": \"bank transfer\",\n  \"source_account\": \"2441880809\",\n  \"source_bank\": \"BCA\",\n  \"transaction_reference\": \"18975465164\", \n  \"timestamp\": 1657511155\n}\n```\n\nbut for `301 staking`, `extra` will contain:\n```json\n\"extra\": {\n  \"pool_uuid\": \"2f391549-d3e0-4d39-9245-515c0d99c4fb\", \n  \"timestamp\": 1657511155\n}\n```"
 							},
 							"response": [
 								{
@@ -2720,13 +2447,9 @@
 											}
 										],
 										"url": {
-											"raw": "https://08207307-bdbb-451a-be2c-156a6730a3da.mock.pstmn.io/wallet/history",
-											"protocol": "https",
+											"raw": "{{url}}/wallet/history",
 											"host": [
-												"08207307-bdbb-451a-be2c-156a6730a3da",
-												"mock",
-												"pstmn",
-												"io"
+												"{{url}}"
 											],
 											"path": [
 												"wallet",
@@ -2823,13 +2546,9 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "https://08207307-bdbb-451a-be2c-156a6730a3da.mock.pstmn.io/wallet/transaction/9515",
-											"protocol": "https",
+											"raw": "{{url}}/wallet/transaction/9515",
 											"host": [
-												"08207307-bdbb-451a-be2c-156a6730a3da",
-												"mock",
-												"pstmn",
-												"io"
+												"{{url}}"
 											],
 											"path": [
 												"wallet",
@@ -2921,12 +2640,1133 @@
 									"body": "{\n    \"statusCode\": 404,\n    \"error\": {\n        \"message\": \"Transaction id 9510 not found.\"\n    },\n    \"name\": \"NotFoundError\"\n}"
 								}
 							]
+						},
+						{
+							"name": "Redeem GIDR to IDR",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer <access_token>",
+										"type": "text"
+									},
+									{
+										"key": "x-mock-match-request-body",
+										"value": "true",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"ui_amount\": 1500\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/wallet/redeem",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"wallet",
+										"redeem"
+									]
+								},
+								"description": "This endpoint is used to redeem GIDR back to IDR, to the customer's bank account. Customer bank account should be defined in his/her profile, otherwise it will return an error.\n\n\n#### Parameters\n| Parameter | Required | Type | Value | Description |\n| --- | --- | --- | --- | --- |\n| ui_amount | true | number | 1000 | Total amount of GIDR to redeem. |"
+							},
+							"response": [
+								{
+									"name": "Redeem GIDR to IDR - Success",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer <access_token>",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"ui_amount\": 1000\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url}}/wallet/redeem",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"wallet",
+												"redeem"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json",
+											"description": "",
+											"type": "text"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"id\": 5619,\n    \"asset\": \"gidr\",\n    \"amount\": 1000000000000,\n    \"ui_amount\": 1000,\n    \"block_tx\": \"3ND4x7mAvjBLw6yQBpvWYozmerh9qPzuRnUueGTy2Ff6LEwNKxptDCXawhA4oR5G5Fb52QyurM1WjQWmVbNm6u7v\",\n    \"wallet\": \"2wY1UbwmS2ZqdiJbst74K1XJmCQGhoU2wyV6jGTuvAka\",\n    \"destination_bank\": \"BCA\",\n    \"destination_name\": \"Bob\",\n    \"destination_account\": \"2441880809\",\n    \"status\": \"SUCCESS\",\n    \"timestamp\": 1657586877 \n}"
+								},
+								{
+									"name": "Redeem GIDR to IDR - Error - insufficient fund",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer <access_token>",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"ui_amount\": 5000\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url}}/wallet/redeem",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"wallet",
+												"redeem"
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json",
+											"description": "",
+											"type": "text"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"statusCode\": 400,\n    \"error\": {\n        \"message\": \"Insufficient fund.\"\n    },\n    \"name\": \"NotEnoughBalance\"\n}"
+								},
+								{
+									"name": "Redeem GIDR to IDR - Error - no bank detail",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer <access_token>",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"ui_amount\": 1500\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url}}/wallet/redeem",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"wallet",
+												"redeem"
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json",
+											"description": "",
+											"type": "text"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"statusCode\": 400,\n    \"error\": {\n        \"message\": \"Bank detail undefined.\"\n    },\n    \"name\": \"ValidationError\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Get virtual account",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer <access_token>",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/wallet/get-va",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"wallet",
+										"get-va"
+									]
+								},
+								"description": "This endpoint get virtual account number for requesting user.\n\nEach user will have their own virtual account number to transfer fiat money."
+							},
+							"response": [
+								{
+									"name": "Get virtual account - Success",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/wallet/get-va",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"wallet",
+												"get-va"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json",
+											"description": "",
+											"type": "text"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"va_number\": \"08887081808253023\",\n    \"bank\": \"BCA\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Get supported currencies",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer <access_token>",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/wallet/supported-currencies",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"wallet",
+										"supported-currencies"
+									]
+								},
+								"description": "When user wants to top up from other cryptocurrencies, first user needs to pull a list of supported currencies.\n\nWe support most popular ones, but not all. This feature doesn't provide blanket-support of every cryptocurrency.\n\nThis endpoint returns a json. The key is the supported currency, the value is the conversion value before transaction fee."
+							},
+							"response": [
+								{
+									"name": "Get supported currencies - Success",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/wallet/supported-currencies",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"wallet",
+												"supported-currencies"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json",
+											"description": "",
+											"type": "text"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"btc\": 350000000,\n    \"eth\": 17000000,\n    \"sol\": 500000,\n    \"usd\": 14850\n}"
+								}
+							]
+						},
+						{
+							"name": "Get crypto address",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer <access_token>",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/wallet/get-address?currency=btc",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"wallet",
+										"get-address"
+									],
+									"query": [
+										{
+											"key": "currency",
+											"value": "btc"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Get crypto address - Success",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/wallet/get-address?currency=btc",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"wallet",
+												"get-address"
+											],
+											"query": [
+												{
+													"key": "currency",
+													"value": "btc"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json",
+											"description": "",
+											"type": "text"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"address\": \"9Y1Pe3ztCBZGTa4BtvDhHLoxL1JrQ8JexA6JJnRtGnrs\",\n    \"network\": \"ethereum\"\n}"
+								},
+								{
+									"name": "Get crypto address - Success Copy",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/wallet/get-address?currency=sol",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"wallet",
+												"get-address"
+											],
+											"query": [
+												{
+													"key": "currency",
+													"value": "sol"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json",
+											"description": "",
+											"type": "text"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"address\": \"8GmHzaNXivwa66AutXbDPNoQoTwniBHLFPSZ18mDWWHy\",\n    \"network\": \"solana\"\n}"
+								}
+							]
 						}
 					],
 					"description": "This group of API endpoints will host all APIs relating to user wallet."
+				},
+				{
+					"name": "Profile",
+					"item": [
+						{
+							"name": "Get banking detail",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer <access_token>",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/profile/banking",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"profile",
+										"banking"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Get banking detail - Success",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer <access_token>",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{url}}/profile/banking",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"profile",
+												"banking"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json",
+											"description": "",
+											"type": "text"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"id\": 1,\n    \"bank_name\": \"BCA\",\n    \"bank_account\": \"2440209899\",\n    \"bank_account_name\": \"Elbert Ludica Toha\",\n    \"swift_code\": \"123456\",\n    \"address\": \"23 Embarcadero Road, California, USA\",\n    \"details\": \"routing code XXXXX\",\n    \"account_nickname\": \"Elbert Toha\",\n    \"asset\": \"idr\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Set banking detail",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer <access_token>",
+										"type": "text"
+									},
+									{
+										"key": "x-mock-match-request-body",
+										"value": "true",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"bank_name\": \"BCA\",\n    \"bank_account\": \"2440209899\",\n    \"bank_account_name\": \"Elbert Ludica Toha\",\n    \"swift_code\": \"123456\",\n    \"address\": \"23 Embarcadero Road, California, USA\",\n    \"details\": \"routing code XXXXX\",\n    \"account_nickname\": \"Elbert Toha\",\n    \"asset\": \"idr\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/profile/banking",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"profile",
+										"banking"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Set banking detail - Success",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer <access_token>",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"bank_name\": \"BCA\",\n    \"bank_account\": \"2440209899\",\n    \"bank_account_name\": \"Elbert Ludica Toha\",\n    \"swift_code\": \"123456\",\n    \"address\": \"23 Embarcadero Road, California, USA\",\n    \"details\": \"routing code XXXXX\",\n    \"account_nickname\": \"Elbert Toha\",\n    \"asset\": \"idr\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url}}/profile/banking",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"profile",
+												"banking"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json",
+											"description": "",
+											"type": "text"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"id\": 1,\n    \"bank_name\": \"BCA\",\n    \"bank_account\": \"2440209899\",\n    \"bank_account_name\": \"Elbert Ludica Toha\",\n    \"swift_code\": \"123456\",\n    \"address\": \"23 Embarcadero Road, California, USA\",\n    \"details\": \"routing code XXXXX\",\n    \"account_nickname\": \"Elbert Toha\",\n    \"asset\": \"idr\"\n}"
+								},
+								{
+									"name": "Set banking detail - Error - incomplete data",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer <access_token>",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"bank_name\": \"BCA\",\n    \"bank_account_name\": \"Elbert Ludica Toha\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url}}/profile/banking",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"profile",
+												"banking"
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json",
+											"description": "",
+											"type": "text"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"statusCode\": 400,\n    \"error\": {\n        \"message\": \"Field 'bank_account' is missing.\"\n    },\n    \"name\": \"BadRequest\"\n}"
+								}
+							]
+						}
+					],
+					"description": "These API group handle all data related to user's profile."
 				}
 			],
 			"description": "This APIs are accessible by all Jagad's user as part of the service."
+		},
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "Pools",
+					"item": [
+						{
+							"name": "Approve unstake request",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-mock-match-request-body",
+										"value": "true",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"pool_uuid\": \"2f391549-d3e0-4d39-9245-515c0d99c4fb\",\n    \"queue_uuid\": \"de044268-6e84-4f09-b626-2c885e03379f\",\n    \"action\": \"approve\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/pool/unstake/request",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"pool",
+										"unstake",
+										"request"
+									]
+								},
+								"description": "Approve or reject unstake request. If request is approved, exchange of cToken and GIDR will happen.\n\n#### Parameters\n\n| Parameter | Required | Type | Value | Description |\n| --- | --- | --- | --- | --- |\n| pool_uuid | true | string | 1837dd24-0d7a-4ddc-af9a-9384f5807915 | Pool's uuid |\n| queue_uuid | true | string | cff2765a-8216-499c-9387-49ddd8f361a5 | Queue uuid |\n| action | true | string | approve / reject | String to pick action |\n\n\n#### Action\n| Value | Description |\n| --- | --- |\n| approve | Approve the request. |\n| reject | Reject the request. |"
+							},
+							"response": [
+								{
+									"name": "Approve unstake request - Success",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer <access_token>",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"pool_uuid\": \"2f391549-d3e0-4d39-9245-515c0d99c4fb\",\n    \"queue_uuid\": \"de044268-6e84-4f09-b626-2c885e03379f\",\n    \"action\": \"approve\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url}}/pool/unstake/request",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"pool",
+												"unstake",
+												"request"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json",
+											"description": "",
+											"type": "text"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"pool_uuid\": \"2f391549-d3e0-4d39-9245-515c0d99c4fb\",\n    \"queue_uuid\": \"de044268-6e84-4f09-b626-2c885e03379f\",\n    \"user_wallet\": \"9RSXWuo2fvGLU85SsK5YJsNuDhm9VBdKf4mZqHDMMAm5\",\n    \"amount\": 400000000000,\n    \"status\": \"approved\",\n    \"date_created\": 1656143188611,\n    \"date_decision\": 1656209689233\n}"
+								},
+								{
+									"name": "Approve unstake request - Error - wrong queue id",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer <access_token>",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"pool_uuid\": \"2f391549-d3e0-4d39-9245-515c0d99c4fb\",\n    \"queue_uuid\": \"de044268-6e84-4f09-b626-2c885e03379d\",\n    \"action\": \"approve\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url}}/pool/unstake/request",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"pool",
+												"unstake",
+												"request"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json",
+											"description": "",
+											"type": "text"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"statusCode\": 404,\n    \"error\": {\n        \"message\": \"Failed to get queue.\"\n    },\n    \"name\": \"NotFoundError\"\n}"
+								},
+								{
+									"name": "Approve unstake request - Error - insufficient fund",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"pool_uuid\": \"2f391549-d3e0-4d39-9245-515c0d99c4fb\",\n    \"queue_uuid\": \"de044268-6e84-4f09-b626-2c885e03379e\",\n    \"action\": \"approve\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url}}/pool/unstake/request",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"pool",
+												"unstake",
+												"request"
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json",
+											"description": "",
+											"type": "text"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"statusCode\": 400,\n    \"error\": {\n        \"message\": \"User does not have enough balance.\"\n    },\n    \"name\": \"NotEnoughBalance\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Create pool",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/temp",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"temp"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Disburse",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-mock-match-request-body",
+										"value": "true",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"pool_uuid\": \"2f391549-d3e0-4d39-9245-515c0d99c4fb\",\n    \"wallet\": \"8GmHzaNXivwa66AutXbDPNoQoTwniBHLFPSZ18mDWWHy\",\n    \"amount\": 2050000000000\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/pool/disburse",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"pool",
+										"disburse"
+									]
+								},
+								"description": "Disburse pool's GIDR to a wallet. Wallet holder could be:\n\n1.  Asset management, in the context of MMI.\n2.  Scholarship receiver, in the context of scholarship pool.\n    \n\nThis is usually used in pool without governance, thus, disbursement is done  \nby Jagad's admin.\n\n#### Parameters\n\n| Parameter | Required | Type | Value | Description |\n| --- | --- | --- | --- | --- |\n| pool_uuid | true | string | 10ec89be-ee28-45b6-996f-074f4cc653a4 | Pool's UUID |\n| wallet | true | string | 9RSXWuo2fvGLU85SsK5YJsNuDhm9VBdKf4mZqHDMMAm5 | Wallet address to receive fund |\n| amount | true | number | 2050000000000 | Amount of GIDR to disbursed with full 9 decimals |\n\n\n#### Errors\n_invalid wallet_\nWallet could be invalid due to several reasons:\n1. Wallet has invalid address\n2. Wallet is not registered\n3. Wallet doesn't have the right role for the pool."
+							},
+							"response": [
+								{
+									"name": "Disburse - Success",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"pool_uuid\": \"2f391549-d3e0-4d39-9245-515c0d99c4fb\",\n    \"wallet\": \"8GmHzaNXivwa66AutXbDPNoQoTwniBHLFPSZ18mDWWHy\",\n    \"amount\": 2050000000000\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url}}/pool/disburse",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"pool",
+												"disburse"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json",
+											"description": "",
+											"type": "text"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"pool_uuid\": \"2f391549-d3e0-4d39-9245-515c0d99c4fb\",\n    \"wallet\": \"9RSXWuo2fvGLU85SsK5YJsNuDhm9VBdKf4mZqHDMMAm5\",\n    \"amount\": 2050000000000,\n    \"network\": \"solana\"\n}"
+								},
+								{
+									"name": "Disburse - Error - pool has inssuficient fund",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"pool_uuid\": \"2f391549-d3e0-4d39-9245-515c0d99c4fb\",\n    \"wallet\": \"8GmHzaNXivwa66AutXbDPNoQoTwniBHLFPSZ18mDWWHy\",\n    \"amount\": 225000000000000\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url}}/pool/disburse",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"pool",
+												"disburse"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json",
+											"description": "",
+											"type": "text"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"statusCode\": 400,\n    \"error\": {\n        \"message\": \"Insufficient funds.\"\n    },\n    \"name\": \"NotEnoughBalance\"\n}"
+								},
+								{
+									"name": "Disburse - Error - incorrect role",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"pool_uuid\": \"2f391549-d3e0-4d39-9245-515c0d99c4fb\",\n    \"wallet\": \"9RSXWuo2fvGLU85SsK5YJsNuDhm9VBdKf4mZqHDMMAm5\",\n    \"amount\": 2050000000000\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url}}/pool/disburse",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"pool",
+												"disburse"
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json",
+											"description": "",
+											"type": "text"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"statusCode\": 400,\n    \"error\": {\n        \"message\": \"Wallet 9RSXWuo2fvGLU85SsK5YJsNuDhm9VBdKf4mZqHDMMAm5 must be registered as 'investee' in mmi pool, otherwise it cannot receive fund.\"\n    },\n    \"name\": \"PoolIncorrectRole\"\n}"
+								},
+								{
+									"name": "Disburse - Error - user not registered",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"pool_uuid\": \"2f391549-d3e0-4d39-9245-515c0d99c4fb\",\n    \"wallet\": \"9RSXWuo2fvGLU85SsK5YJsNuDhm9VBdKf4mZqHDMMAm6\",\n    \"amount\": 2050000000000\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url}}/pool/disburse",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"pool",
+												"disburse"
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json",
+											"description": "",
+											"type": "text"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"statusCode\": 400,\n    \"error\": {\n        \"message\": \"Wallet 9RSXWuo2fvGLU85SsK5YJsNuDhm9VBdKf4mZqHDMMAm6 is not registered. Please check again.\"\n    },\n    \"name\": \"NotRegistered\"\n}"
+								}
+							]
+						}
+					]
+				}
+			],
+			"description": "These APIs are only accessible by Jagad's admin team and watchers."
+		},
+		{
+			"name": "Programmatic",
+			"item": [
+				{
+					"name": "Webhook - va transfer in",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "ApiKey <api_key_access>",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/wallet/va-in?provider=stripe",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"wallet",
+								"va-in"
+							],
+							"query": [
+								{
+									"key": "provider",
+									"value": "stripe"
+								}
+							]
+						},
+						"description": "This endpoint is to be called when there's money incoming in the virtual account.\n\nRequest body follow the provider. For example, Stripe will have different format compared to other providers.\n\nBackend handler must be able to handle supported provider.\n\nThis endpoint transfer GIDR to the associated user. If called successfully, will return `204 No Content`."
+					},
+					"response": [
+						{
+							"name": "Webhook - va transfer in - Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "ApiKey <api_key_access>",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/wallet/va-in?provider=stripe",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"wallet",
+										"va-in"
+									],
+									"query": [
+										{
+											"key": "provider",
+											"value": "stripe"
+										}
+									]
+								}
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				}
+			]
 		}
 	],
 	"event": [
