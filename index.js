@@ -2,7 +2,7 @@
 const postmanToOpenApi = require('postman-to-openapi')
 
 // Postman Collection Path
-const postmanCollection = './v1.postman_collection.json'
+const postmanCollection = 'Demo 3 June.postman_collection.json'
 // Output OpenAPI Path
 const outputFile = './output.yaml'
 
