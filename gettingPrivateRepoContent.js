@@ -1,12 +1,15 @@
+var open = require('open');
 var https = require("https");
 var owner ='garudaidr';
 var repos = 'jagad';
 var userAgent = 'elliotpark410';
-var privateAccessToken = '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';
+// had to create another privateAccessToken, I wonder if this will be a recurring problem
+var privateAccessToken = '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';
+var path = 'output.yaml'
 
 var options = {
     host :"api.github.com",
-    path: "/repos/" + owner + "/" + repos + "/contents/docs",
+    path: "/repos/" + owner + "/" + repos + "/contents/docs" + path,
     method : 'GET',
     headers: {
       'User-Agent': userAgent,
@@ -21,12 +24,19 @@ var request = https.request(options, function(response){
     });
     response.on('end',function(){
         var json = JSON.parse(body);
-
         console.log(json);
+        console.log(json.download_url);
+        var downloadURL = json.download_url;
+        redoclyPreview(downloadURL)
     });
 
 });
 request.on('error', function(e) {
-    console.error('and the error is '+e);
+    console.error('and the error is '+ e);
 });
 request.end();
+
+
+function redoclyPreview(url) {
+    open('https://redocly.github.io/redoc/?nocors&url=' + url)
+}
