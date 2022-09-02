@@ -14,4 +14,4 @@ RUN npm install
 # Bundle app source
 COPY . .
 EXPOSE 4567
-CMD [ "node", "output.yaml"]
+CMD [ "node", "run convert"]
