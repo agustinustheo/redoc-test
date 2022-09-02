@@ -41,5 +41,3 @@ postmanToOpenApi(postmanCollection, outputFile, { defaultTag: 'General' })
     })
 
 
-
-

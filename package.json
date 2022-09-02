@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./index.js",
-    "git": "git add output.yaml && git commit -m \"pushing updated output.yaml\" && git push origin main"
+    "git": "git add output.yaml && git commit -m \"pushing updated output.yaml\" && git push origin main",
+    "preview": "node ./gettingPublicRepoContent.js",
+    "convert": "npm run start && npm run git && npm run preview"
   },
   "author": "",
   "license": "ISC",
