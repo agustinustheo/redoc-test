@@ -10,6 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "postman-to-openapi": "^2.4.0"
+    "open": "^8.4.0",
+    "postman-to-openapi": "^2.4.0",
+    "simple-git": "^3.13.0"
   }
 }

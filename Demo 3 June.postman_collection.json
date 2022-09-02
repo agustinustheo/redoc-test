@@ -19,7 +19,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"name\": \"mmi\",\n    \"display\": \"Money Market Instrument\",\n    \"description\": \"This pool fund is invested into Indonesian Money Market Instrument such as bank deposit and government bonds. This pool has minimal risk.\",\n    \"type\": 0,\n    \"risk_class\": 2,\n    \"risk_description\": \"This pool has minimal risk because bank deposits are guarantee by state insurance (LPS). For government bonds, Indonesia has BBB+ rating. All risk exposure will be tightly correlated with Indonesian Economy.\",\n    \"expected_annual_return\": 500,\n    \"is_private\": false,\n    \"program_id\": \"2rXhwHQYKY3WWBPKu7FfnM6R1MhhmexMpmb7ArMxw57P\"\n}",
+					"raw": "{\n    \"name\": \"mmi\",\n    \"display\": \"Money Market Instrument\",\n    \"description\": \"This pool fund is invested into Indonesian and Korean Money Market Instrument such as bank deposit and government bonds. This pool has minimal risk.\",\n    \"type\": 0,\n    \"risk_class\": 2,\n    \"risk_description\": \"This pool has minimal risk because bank deposits are guarantee by state insurance (LPS). For government bonds, Indonesia has BBB+ rating. All risk exposure will be tightly correlated with Indonesian Economy.\",\n    \"expected_annual_return\": 500,\n    \"is_private\": false,\n    \"program_id\": \"2rXhwHQYKY3WWBPKu7FfnM6R1MhhmexMpmb7ArMxw57P\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
