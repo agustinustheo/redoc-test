@@ -1,44 +1,36 @@
-// Require Package
-const postmanToOpenApi = require('postman-to-openapi')
-
-// EP: Require FileSystem Package
+const postmanToOpenApi = require('postman-to-openapi'); // Postman Magic
 const fs = require('fs');
 
-// EP: Reads the Contents of Current Directory
-const files = fs.readdirSync('./')
-
-// EP: Declaring Variable for FilePath
-var filePath;
-
-// EP: Get File Name with "postman_collection.json"
-for (let i = 0; i < files.length; i++) {
-  if (files[i].includes("postman_collection.json")) {
-    filePath = files[i];
-    console.log('Postman Collection file: ' + files[i])
-  }
+function getPostmanCollection() {
+    // Global scope, never use `var` use `let` or `const` instead.
+    // EP: Reads the Contents of Current Directory
+    const files = fs.readdirSync('./')
+    
+    // EP: Get File Name with "postman_collection.json"
+    for (let i = 0; i < files.length; i++) {
+      if (files[i].includes("postman_collection.json")) {
+        console.log('Postman Collection file: ' + files[i])
+        return files[i];
+      }
+    }
 }
 
-// EP: Console Error if File With "postman_collection.json" is Not in Current Directory
-if (filePath === undefined) {
-  console.error("File name including 'postman_collection.json' not found in current directory")
+async function main() {
+    const postmanCollection = getPostmanCollection();
+    
+    // EP: Console Error if File With "postman_collection.json" is Not in Current Directory
+    if (postmanCollection === undefined) {
+      console.error("File name including 'postman_collection.json' not found in current directory")
+    }
+    
+    // Output OpenAPI Path
+    const outputFile = './output.yaml'
+    
+    // Async/await
+    // Promise callback style
+    return await postmanToOpenApi(postmanCollection, outputFile, { defaultTag: 'General' });
 }
 
-// Postman Collection Path
-const postmanCollection = filePath
-
-// Output OpenAPI Path
-const outputFile = './output.yaml'
-
-// Async/await
-// Promise callback style
-postmanToOpenApi(postmanCollection, outputFile, { defaultTag: 'General' })
-    .then(result => {
-        console.log(`OpenAPI specs: ${result}`)
-    })
-    .catch(err => {
-        console.log(err)
-    })
-
-
-
-
+main()
+    .then(console.log)
+    .catch(console.error);
