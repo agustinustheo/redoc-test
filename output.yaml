@@ -19,10 +19,10 @@ paths:
                 name: kfund
                 display: Kimchi Fund
                 description: >-
-                  The fund in this pool will be used for bitcoin arbitrage in
-                  Korea. This leverage price difference between BTC in Korea and
-                  the rest of the world due to Korea's strict capital outflow
-                  policy.
+                  TEST The fund in this pool will be used for bitcoin arbitrage
+                  in Korea. This leverage price difference between BTC in Korea
+                  and the rest of the world due to Korea's strict capital
+                  outflow policy.
                 type: 0
                 risk_class: 8
                 risk_description: >-
