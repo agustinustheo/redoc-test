@@ -39,12 +39,9 @@ request.end();
 
 
 
-function redoclyPreview(url) {
+let redoclyPreview = function (url) {
     preview = 'https://redocly.github.io/redoc/?nocors&url=' + url;
     open(preview)
-    console.log(preview)
+    console.log('preview link: ' + preview)
 }
-
-
-
 
