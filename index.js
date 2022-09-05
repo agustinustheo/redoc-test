@@ -1,7 +1,6 @@
 // Require Package
 const postmanToOpenApi = require('postman-to-openapi')
 
-
 // EP: Require FileSystem Package
 const fs = require('fs');
 

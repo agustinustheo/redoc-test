@@ -1,3 +1,4 @@
+const { Console } = require("console");
 var https = require("https");
 var open = require('open');
 
@@ -39,11 +40,12 @@ request.end();
 
 
 
-function redoclyPreview(url) {
+var redoclyPreview = function (url) {
     preview = 'https://redocly.github.io/redoc/?nocors&url=' + url;
     open(preview)
-    console.log(preview)
+    console.log('PREVIEW: ' + preview)
 }
+
 
 
 

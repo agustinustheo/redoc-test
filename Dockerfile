@@ -1,7 +1,7 @@
 FROM node:18
 
 # Create app directory
-WORKDIR /docker-practice-redoc-test
+WORKDIR /usr/src/app
 
 # Install app dependencies
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
@@ -9,9 +9,12 @@ WORKDIR /docker-practice-redoc-test
 COPY package*.json ./
 
 
-RUN npm install
+RUN npm install && npm run convert
 
 # Bundle app source
 COPY . .
-EXPOSE 4567
-CMD [ "node", "run convert"]
+
+EXPOSE 8080
+CMD [ "node", "convert"]
+
+

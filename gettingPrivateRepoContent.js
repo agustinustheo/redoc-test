@@ -4,7 +4,7 @@ var owner ='garudaidr';
 var repos = 'jagad';
 var userAgent = 'elliotpark410';
 // had to create another privateAccessToken, I wonder if this will be a recurring problem
-var privateAccessToken = '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';
+var privateAccessToken = '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';
 var path = 'output.yaml'
 
 var options = {
@@ -37,6 +37,7 @@ request.on('error', function(e) {
 request.end();
 
 
-function redoclyPreview(url) {
-    open('https://redocly.github.io/redoc/?nocors&url=' + url)
+function redoclyPreview(downloadURL) {
+    open('https://redocly.github.io/redoc/?nocors&url=' + downloadURL)
+    console.log('https://redocly.github.io/redoc/?nocors&url=' + downloadURL)
 }

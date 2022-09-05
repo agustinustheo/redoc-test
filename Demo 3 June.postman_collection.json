@@ -52,7 +52,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"name\": \"kfund\",\n    \"display\": \"Kimchi Fund\",\n    \"description\": \"The fund in this pool will be used for bitcoin arbitrage in Korea. This leverage price difference between BTC in Korea and the rest of the world due to Korea's strict capital outflow policy.\",\n    \"type\": 0,\n    \"risk_class\": 8,\n    \"risk_description\": \"This pool is risky. Primary risk comes from operation stategy we employed. Fund might stuck in Korea without a way get out.\",\n    \"expected_annual_return\": 50000,\n    \"is_private\": true,\n    \"program_id\": \"6ZzZPUQg2Dik4bHZi8xRxcFcLjXAAh1zVUhEojVKpCK5\"\n}",
+					"raw": "{\n    \"name\": \"kfund\",\n    \"display\": \"Kimchi Fund\",\n    \"description\": \"TEST2 The fund in this pool will be used for bitcoin arbitrage in Korea. This leverage price difference between BTC in Korea and the rest of the world due to Korea's strict capital outflow policy.\",\n    \"type\": 0,\n    \"risk_class\": 8,\n    \"risk_description\": \"This pool is risky. Primary risk comes from operation stategy we employed. Fund might stuck in Korea without a way get out.\",\n    \"expected_annual_return\": 50000,\n    \"is_private\": true,\n    \"program_id\": \"6ZzZPUQg2Dik4bHZi8xRxcFcLjXAAh1zVUhEojVKpCK5\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
